@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using vocea_universitatii.Helpers;
@@ -11,9 +12,11 @@ using vocea_universitatii.Helpers;
 namespace vocea_universitatii.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class FacultyContextModelSnapshot : ModelSnapshot
+    [Migration("20231101194243_CreatedDepartments")]
+    partial class CreatedDepartments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,18 +33,6 @@ namespace vocea_universitatii.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("CreatedByid")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("DeletedByid")
-                        .HasColumnType("integer");
-
                     b.Property<long>("FacultyId")
                         .HasColumnType("bigint");
 
@@ -49,21 +40,9 @@ namespace vocea_universitatii.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("UpdatedByid")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedByid");
-
-                    b.HasIndex("DeletedByid");
-
                     b.HasIndex("FacultyId");
-
-                    b.HasIndex("UpdatedByid");
 
                     b.ToTable("Departments");
                 });
@@ -121,12 +100,6 @@ namespace vocea_universitatii.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -135,9 +108,6 @@ namespace vocea_universitatii.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.HasKey("id");
 
                     b.ToTable("User");
@@ -145,31 +115,13 @@ namespace vocea_universitatii.Migrations
 
             modelBuilder.Entity("vocea_universitatii.Department", b =>
                 {
-                    b.HasOne("vocea_universitatii.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedByid");
-
-                    b.HasOne("vocea_universitatii.User", "DeletedBy")
-                        .WithMany()
-                        .HasForeignKey("DeletedByid");
-
                     b.HasOne("vocea_universitatii.Faculty", "Faculty")
                         .WithMany("Departments")
                         .HasForeignKey("FacultyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("vocea_universitatii.User", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedByid");
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("DeletedBy");
-
                     b.Navigation("Faculty");
-
-                    b.Navigation("UpdatedBy");
                 });
 
             modelBuilder.Entity("vocea_universitatii.Faculty", b =>

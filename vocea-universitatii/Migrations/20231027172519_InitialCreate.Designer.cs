@@ -10,7 +10,7 @@ using vocea_universitatii.Helpers;
 
 namespace vocea_universitatii.Migrations
 {
-    [DbContext(typeof(FacultyContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20231027172519_InitialCreate")]
     partial class InitialCreate
     {

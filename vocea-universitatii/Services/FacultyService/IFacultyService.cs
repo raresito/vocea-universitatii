@@ -1,15 +1,18 @@
-﻿namespace vocea_universitatii.Services.FacultyService;
+﻿using vocea_universitatii.Models;
+using vocea_universitatii.Models.DTOs;
+
+namespace vocea_universitatii.Services.FacultyService;
 
 public interface IFacultyService
 {
-    Task<List<Faculty>> GetAllFaculties();
+    Task<List<FacultySendDTO>> GetAllFaculties();
     
-    Task<Faculty> GetSingleFaculty(int id);
+    Task<FacultySendDTO> GetSingleFaculty(long id);
     
-    Task<List<Faculty>> AddFaculty(Faculty faculty);
+    Task<List<FacultySendDTO>> AddFaculty(FacultyCreateDTO faculty);
     
-    Task<List<Faculty>> UpdateFaculty(int id, Faculty request);
+    Task<List<FacultySendDTO>> UpdateFaculty(FacultyUpdateDTO request);
     
-    Task<List<Faculty>> DeleteFaculty(int id);
+    Task<List<FacultySendDTO>> DeleteFaculty(long id);
     
 }

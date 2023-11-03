@@ -1,81 +1,66 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using vocea_universitatii.Helpers;
+using vocea_universitatii.Models;
+using vocea_universitatii.Models.DTOs;
 
 namespace vocea_universitatii.Services.FacultyService;
 
 public class FacultyService : IFacultyService
 {
-    
-    // private static List<Faculty> faculties = new List<Faculty>
-    // {
-    //     new Faculty
-    //     {
-    //         Id = 1,
-    //         Name = "Facultatea de Matematica si Informatica",
-    //         ShortName = "FMI"
-    //     }
-    // };
 
-    private readonly FacultyContext _context;
+    private readonly DatabaseContext _context;
 
-    public FacultyService(FacultyContext context)
+    public FacultyService(DatabaseContext context)
     {
         _context = context;
     }
     
-    public async Task<List<Faculty>> GetAllFaculties()
+    public async Task<List<FacultySendDTO>> GetAllFaculties()
     {
-        var faculties = await _context.Faculties.ToListAsync();
-        return faculties;
+        var databaseFaculties = await _context.Faculties.ToListAsync();
+        var faculties =
+            databaseFaculties.Select(FacultySendDTO.FacultyToFacultySendDTO);
+        return faculties.ToList();
     }
 
-    public async Task<Faculty> GetSingleFaculty(int id)
+    public async Task<FacultySendDTO> GetSingleFaculty(long id)
     {
-        var faculty = await _context.Faculties.FindAsync(id);
-        if (faculty is null)
-        {
-            return null;
-        }
+        var databaseFaculty = await _context.Faculties.FindAsync(id);
+        if (databaseFaculty == null) return null;
+        var faculty = FacultySendDTO.FacultyToFacultySendDTO(databaseFaculty);
         return faculty;
     }
 
-    public async Task<List<Faculty>> AddFaculty(Faculty faculty)
+    public async Task<List<FacultySendDTO>> AddFaculty(FacultyCreateDTO faculty)
     {
         
-        await _context.Faculties.AddAsync(faculty);
+        await _context.Faculties.AddAsync(FacultyCreateDTO.FacultyCreateDTOToFaculty(faculty));
         await _context.SaveChangesAsync();
         return await GetAllFaculties();
     }
 
-    public async Task<List<Faculty>> UpdateFaculty(int id, Faculty request)
+    public async Task<List<FacultySendDTO>> UpdateFaculty(FacultyUpdateDTO request)
     {
-        var faculty = await _context.Faculties.FindAsync(id);
-        if (faculty is null)
-        {
-            return null;
-        }
-
+        var id = request.Id;
+        var databaseFaculty = await _context.Faculties.FindAsync(id);
+        if (databaseFaculty == null) return null;
         // Update the values of the object
         
-        faculty.Id = request.Id;
-        faculty.Name = request.Name;
-        faculty.ShortName = request.ShortName;
+        databaseFaculty.FullName = request.FullName;
+        databaseFaculty.ShortName = request.ShortName;
 
         await _context.SaveChangesAsync();
 
         return await GetAllFaculties();
     }
 
-    public async Task<List<Faculty>> DeleteFaculty(int id)
+    public async Task<List<FacultySendDTO>> DeleteFaculty(long id)
     {
-        var faculty = await _context.Faculties.FindAsync(id);
-        if (faculty is null)
-        {
-            return null;
-        }
+        var databaseFaculty = await _context.Faculties.FindAsync(id);
+        if (databaseFaculty == null) return null;
 
-        _context.Faculties.Remove(faculty);
+        _context.Faculties.Remove(databaseFaculty);
         await _context.SaveChangesAsync();
         
         return await GetAllFaculties();

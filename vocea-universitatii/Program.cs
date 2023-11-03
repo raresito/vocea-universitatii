@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using vocea_universitatii.Helpers;
+using vocea_universitatii.Services.DepartmentService;
 using vocea_universitatii.Services.FacultyService;
 
 // global using vocea_universitatii.Models;
@@ -13,7 +14,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IFacultyService, FacultyService>();
-builder.Services.AddDbContext<FacultyContext>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddDbContext<DatabaseContext>();
+
 
 var app = builder.Build();
 
@@ -25,6 +28,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// The database didn't process the dates properly.
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.UseAuthorization();
 

@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using vocea_universitatii.Models;
+using vocea_universitatii.Models.DTOs;
 using vocea_universitatii.Services.FacultyService;
 
 namespace vocea_universitatii.Controllers;
@@ -17,39 +18,32 @@ public class FacultiesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Faculty>>> GetAllFaculties()
+    public async Task<ActionResult<List<FacultySendDTO>>> GetAllFaculties()
     {
         var result = await _facultyService.GetAllFaculties();
-        if (result is null)
-        {
-            return NotFound("Didn't find the list of faculties.");
-        }
+        if (!result.Any()) return NotFound("Didn't find the list of faculties.");
         return Ok(result);
     }
     
     [HttpGet("{id}")]
-    public async Task<ActionResult<Faculty>> GetSingleFaculty(int id)
+    public async Task<ActionResult<FacultySendDTO>> GetSingleFaculty(long id)
     {
-        var result = await _facultyService.GetSingleFaculty(id);
-        if (result is null)
-        {
-            return NotFound("Didn't find the faculty");
-        }
-
-        return Ok(result);
+        var faculty = await _facultyService.GetSingleFaculty(id);
+        if (faculty is null) return NotFound("Didn't find the faculty");
+        return Ok(faculty);
     }
 
     [HttpPost]
-    public async Task<ActionResult<List<Faculty>>> AddFaculty(Faculty faculty)
+    public async Task<ActionResult<List<FacultySendDTO>>> AddFaculty(FacultyCreateDTO faculty)
     {
         var result = await _facultyService.AddFaculty(faculty);
         return Ok(result);
     }
     
-    [HttpPut("{id}")]
-    public async Task<ActionResult<List<Faculty>>> UpdateFaculty(int id, Faculty request)
+    [HttpPut]
+    public async Task<ActionResult<List<FacultySendDTO>>> UpdateFaculty(FacultyUpdateDTO request)
     {
-        var result = await _facultyService.UpdateFaculty(id, request);
+        var result = await _facultyService.UpdateFaculty(request);
         if (result is null)
         {
             return NotFound("Didn't find the faculty");
@@ -59,14 +53,13 @@ public class FacultiesController : ControllerBase
     }
     
     [HttpDelete("{id}")]
-    public async Task<ActionResult<List<Faculty>>> DeleteFaculty(int id)
+    public async Task<ActionResult<List<FacultySendDTO>>> DeleteFaculty(long id)
     {
         var result = await _facultyService.DeleteFaculty(id);
         if (result is null)
         {
             return NotFound("Didn't find the faculty");
         }
-
         return Ok(result);
     }
     
