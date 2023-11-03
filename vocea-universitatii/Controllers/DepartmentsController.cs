@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using vocea_universitatii.Models;
+using vocea_universitatii.Models.DTOs;
 using vocea_universitatii.Services.DepartmentService;
 
 namespace vocea_universitatii.Controllers;
@@ -28,7 +29,7 @@ public class DepartmentsController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public async Task<ActionResult<Department>> GetSingleDepartment(int id)
+    public async Task<ActionResult<Department>> GetSingleDepartment(long id)
     {
         var result = await _departmentService.GetSingleDepartment(id);
         if (result is null)
@@ -40,16 +41,16 @@ public class DepartmentsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<List<Department>>> AddDepartment(Department department)
+    public async Task<ActionResult<List<DepartmentSendDTO>>> AddDepartment(DepartmentCreateDTO department)
     {
         var result = await _departmentService.AddDepartment(department);
         return Ok(result);
     }
     
-    [HttpPut("{id}")]
-    public async Task<ActionResult<List<Department>>> UpdateDepartment(int id, Department request)
+    [HttpPut]
+    public async Task<ActionResult<List<DepartmentSendDTO>>> UpdateDepartment(DepartmentUpdateDTO request)
     {
-        var result = await _departmentService.UpdateDepartment(id, request);
+        var result = await _departmentService.UpdateDepartment(request);
         if (result is null)
         {
             return NotFound("Didn't find the department");
@@ -59,7 +60,7 @@ public class DepartmentsController : ControllerBase
     }
     
     [HttpDelete("{id}")]
-    public async Task<ActionResult<List<Department>>> DeleteDepartment(int id)
+    public async Task<ActionResult<List<DepartmentSendDTO>>> DeleteDepartment(long id)
     {
         var result = await _departmentService.DeleteDepartment(id);
         if (result is null)

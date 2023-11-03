@@ -1,16 +1,17 @@
 ﻿using vocea_universitatii.Models;
+using vocea_universitatii.Models.DTOs;
 
 namespace vocea_universitatii.Services.DepartmentService;
 
 public interface IDepartmentService
 {
-    Task<List<Department>> GetAllDepartments();
+    Task<List<DepartmentSendDTO>> GetAllDepartments();
     
-    Task<Department> GetSingleDepartment(int id);
+    Task<DepartmentSendDTO> GetSingleDepartment(long id);
     
-    Task<List<Department>> AddDepartment(Department department);
+    Task<List<DepartmentSendDTO>> AddDepartment(DepartmentCreateDTO department);
     
-    Task<List<Department>> UpdateDepartment(int id, Department request);
+    Task<List<DepartmentSendDTO>> UpdateDepartment(DepartmentUpdateDTO request);
     
-    Task<List<Department>> DeleteDepartment(int id);
+    Task<List<DepartmentSendDTO>> DeleteDepartment(long id);
 }
