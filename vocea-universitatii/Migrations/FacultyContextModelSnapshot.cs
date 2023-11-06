@@ -22,7 +22,7 @@ namespace vocea_universitatii.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("vocea_universitatii.Department", b =>
+            modelBuilder.Entity("vocea_universitatii.Models.Department", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,7 +68,7 @@ namespace vocea_universitatii.Migrations
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("vocea_universitatii.Faculty", b =>
+            modelBuilder.Entity("vocea_universitatii.Models.Faculty", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,6 +113,100 @@ namespace vocea_universitatii.Migrations
                     b.ToTable("Faculties");
                 });
 
+            modelBuilder.Entity("vocea_universitatii.Models.Teacher", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CNP")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("CreatedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("DeletedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("UpdatedByid")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByid");
+
+                    b.HasIndex("DeletedByid");
+
+                    b.HasIndex("UpdatedByid");
+
+                    b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("vocea_universitatii.Models.TeacherDepartmentMembership", b =>
+                {
+                    b.Property<long>("TeacherId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("DepartmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("BaseDepartment")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("CreatedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("DeletedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("UpdatedByid")
+                        .HasColumnType("integer");
+
+                    b.HasKey("TeacherId", "DepartmentId");
+
+                    b.HasIndex("CreatedByid");
+
+                    b.HasIndex("DeletedByid");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("UpdatedByid");
+
+                    b.ToTable("TeacherDepartmentMembership");
+                });
+
             modelBuilder.Entity("vocea_universitatii.User", b =>
                 {
                     b.Property<int>("id")
@@ -143,7 +237,7 @@ namespace vocea_universitatii.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("vocea_universitatii.Department", b =>
+            modelBuilder.Entity("vocea_universitatii.Models.Department", b =>
                 {
                     b.HasOne("vocea_universitatii.User", "CreatedBy")
                         .WithMany()
@@ -153,7 +247,7 @@ namespace vocea_universitatii.Migrations
                         .WithMany()
                         .HasForeignKey("DeletedByid");
 
-                    b.HasOne("vocea_universitatii.Faculty", "Faculty")
+                    b.HasOne("vocea_universitatii.Models.Faculty", "Faculty")
                         .WithMany("Departments")
                         .HasForeignKey("FacultyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -172,7 +266,7 @@ namespace vocea_universitatii.Migrations
                     b.Navigation("UpdatedBy");
                 });
 
-            modelBuilder.Entity("vocea_universitatii.Faculty", b =>
+            modelBuilder.Entity("vocea_universitatii.Models.Faculty", b =>
                 {
                     b.HasOne("vocea_universitatii.User", "CreatedBy")
                         .WithMany()
@@ -193,9 +287,73 @@ namespace vocea_universitatii.Migrations
                     b.Navigation("UpdatedBy");
                 });
 
-            modelBuilder.Entity("vocea_universitatii.Faculty", b =>
+            modelBuilder.Entity("vocea_universitatii.Models.Teacher", b =>
+                {
+                    b.HasOne("vocea_universitatii.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedByid");
+
+                    b.HasOne("vocea_universitatii.User", "DeletedBy")
+                        .WithMany()
+                        .HasForeignKey("DeletedByid");
+
+                    b.HasOne("vocea_universitatii.User", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByid");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("DeletedBy");
+
+                    b.Navigation("UpdatedBy");
+                });
+
+            modelBuilder.Entity("vocea_universitatii.Models.TeacherDepartmentMembership", b =>
+                {
+                    b.HasOne("vocea_universitatii.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedByid");
+
+                    b.HasOne("vocea_universitatii.User", "DeletedBy")
+                        .WithMany()
+                        .HasForeignKey("DeletedByid");
+
+                    b.HasOne("vocea_universitatii.Models.Department", null)
+                        .WithMany("TeacherDepartmentMemberships")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("vocea_universitatii.Models.Teacher", null)
+                        .WithMany("TeacherDepartmentMemberships")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("vocea_universitatii.User", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByid");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("DeletedBy");
+
+                    b.Navigation("UpdatedBy");
+                });
+
+            modelBuilder.Entity("vocea_universitatii.Models.Department", b =>
+                {
+                    b.Navigation("TeacherDepartmentMemberships");
+                });
+
+            modelBuilder.Entity("vocea_universitatii.Models.Faculty", b =>
                 {
                     b.Navigation("Departments");
+                });
+
+            modelBuilder.Entity("vocea_universitatii.Models.Teacher", b =>
+                {
+                    b.Navigation("TeacherDepartmentMemberships");
                 });
 #pragma warning restore 612, 618
         }

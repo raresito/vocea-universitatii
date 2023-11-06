@@ -10,6 +10,7 @@ public class DatabaseContext : DbContext
     
     public DbSet<Faculty> Faculties { get; set; } = null!;
     public DbSet<Department> Departments { get; set; } = null!;
+    public DbSet<Teacher> Teachers { get; set; } = null!;
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration configuration)
         : base(options)
@@ -27,6 +28,10 @@ public class DatabaseContext : DbContext
     {
         new FacultyEntityTypeConfiguration().Configure(modelBuilder.Entity<Faculty>());
         new DepartmentEntityTypeConfiguration().Configure(modelBuilder.Entity<Department>());
+        new TeacherEntityTypeConfiguration().Configure(modelBuilder.Entity<Teacher>());
+
+        modelBuilder.Entity<TeacherDepartmentMembership>()
+            .HasKey(lc => new { lc.TeacherId, lc.DepartmentId });
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

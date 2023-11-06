@@ -14,4 +14,6 @@ public interface IDepartmentService
     Task<List<DepartmentSendDTO>> UpdateDepartment(DepartmentUpdateDTO request);
     
     Task<List<DepartmentSendDTO>> DeleteDepartment(long id);
+
+    DepartmentSendDTO DepartmentToDepartmentSendDto(Department department);
 }

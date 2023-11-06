@@ -13,5 +13,9 @@ public class DepartmentEntityTypeConfiguration : IEntityTypeConfiguration<Depart
         builder
             .Property(b => b.FullName)
             .IsRequired();
+        builder
+            .HasMany<Teacher>(c => c.Teachers)
+            .WithMany(c => c.Departments)
+            .UsingEntity<TeacherDepartmentMembership>();
     }
 }
