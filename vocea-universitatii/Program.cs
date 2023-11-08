@@ -19,6 +19,10 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddDbContext<DatabaseContext>();
 
+// Use AppConfiguration singleton to manage secrets.
+var config = new AppConfiguration();
+config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key"];
+builder.Services.AddSingleton<AppConfiguration>(config);
 
 var app = builder.Build();
 
