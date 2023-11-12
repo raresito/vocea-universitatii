@@ -10,6 +10,10 @@ public class Teacher : BaseModel
 
     public string Email { get; set; }
 
+    public long? TeacherTitleId { get; set; }
+
+    public TeacherTitle? Title { get; set; }
+    
     public long CNP { get; set; }
     
     public ICollection<TeacherDepartmentMembership> TeacherDepartmentMemberships { get; set; }

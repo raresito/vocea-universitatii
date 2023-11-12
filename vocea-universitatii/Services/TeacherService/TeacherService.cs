@@ -1,6 +1,5 @@
 ﻿using System.Security.AccessControl;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.Replication;
 using vocea_universitatii.Helpers;
 using vocea_universitatii.Models;
 using vocea_universitatii.Models.DTOs;
@@ -46,7 +45,12 @@ public class TeacherService : ITeacherService
             FirstName = teacher.FirstName,
             LastName = teacher.LastName,
             Email = teacher.Email,
-            Departments = enhancedTeacherDepartments
+            Departments = enhancedTeacherDepartments,
+            TeacherTitle = new TeacherTitleSendDTO()
+            {
+                Id = teacher.Title.Id,
+                Title = teacher.Title?.Title
+            }
         };
     }
     
@@ -116,7 +120,9 @@ public class TeacherService : ITeacherService
     
     public async Task<List<TeacherSendDTO>> GetAllTeachers()
     {
-        var databaseTeachers = _context.Teachers.Include(i => i.Departments).ToList();
+        var databaseTeachers = _context.Teachers
+            .Include(t => t.Title)
+            .Include(i => i.Departments).ToList();
         var teachers = databaseTeachers.Select(TeacherToTeacherSendDto).ToList();
         return teachers;
     }
@@ -124,7 +130,9 @@ public class TeacherService : ITeacherService
     public async Task<TeacherSendDTO> GetSingleTeacher(long id)
     {
         // var databaseTeacher = await _context.Teachers.Include(i => i.Departments).FirstOrDefaultAsync(i => i.Id == id);
-        var databaseTeacher = await _context.Teachers.Include(i => i.TeacherDepartmentMemberships).FirstOrDefaultAsync(i => i.Id == id);
+        var databaseTeacher = await _context.Teachers
+            .Include(t => t.Title)
+            .Include(i => i.TeacherDepartmentMemberships).FirstOrDefaultAsync(i => i.Id == id);
         if (databaseTeacher == null) return null;
         var teacher = TeacherToTeacherSendDto(databaseTeacher);
         return teacher;
@@ -149,6 +157,7 @@ public class TeacherService : ITeacherService
         databaseTeacher.FirstName = request.FirstName;
         databaseTeacher.LastName = request.LastName;
         databaseTeacher.Email = request.Email;
+        databaseTeacher.TeacherTitleId = request.TeacherTitleId;
         ChangeTeacherBaseDepartment(request.Id, request.BaseDepartmentId);
     
         await _context.SaveChangesAsync();

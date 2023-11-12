@@ -12,6 +12,7 @@ public class DatabaseContext : DbContext
     public DbSet<Faculty> Faculties { get; set; } = null!;
     public DbSet<Department> Departments { get; set; } = null!;
     public DbSet<Teacher> Teachers { get; set; } = null!;
+    public DbSet<TeacherTitle> TeacherTitles { get; set; } = null!;
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration configuration, AppConfiguration config)
         : base(options)
@@ -47,6 +48,7 @@ public class DatabaseContext : DbContext
         new FacultyEntityTypeConfiguration().Configure(modelBuilder.Entity<Faculty>());
         new DepartmentEntityTypeConfiguration().Configure(modelBuilder.Entity<Department>());
         new TeacherEntityTypeConfiguration().Configure(modelBuilder.Entity<Teacher>());
+        new TeacherTitleEntityTypeConfiguration().Configure(modelBuilder.Entity<TeacherTitle>());
 
         modelBuilder.Entity<TeacherDepartmentMembership>()
             .HasKey(lc => new { lc.TeacherId, lc.DepartmentId });

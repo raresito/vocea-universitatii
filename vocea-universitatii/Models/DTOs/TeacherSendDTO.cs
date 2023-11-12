@@ -13,4 +13,6 @@ public class TeacherSendDTO
     public long CNP { get; set; }
     
     public List<DepartmentOfTeacherSendDTO> Departments { get; set;  }
+    
+    public TeacherTitleSendDTO? TeacherTitle { get; set; }
 }

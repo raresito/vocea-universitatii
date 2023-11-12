@@ -13,4 +13,6 @@ public class TeacherUpdateDTO
     public long CNP { get; set; }
     
     public long BaseDepartmentId { get; set; }
+    
+    public long TeacherTitleId { get; set; }
 }

@@ -3,6 +3,7 @@ using vocea_universitatii.Helpers;
 using vocea_universitatii.Services.DepartmentService;
 using vocea_universitatii.Services.FacultyService;
 using vocea_universitatii.Services.TeacherService;
+using vocea_universitatii.Services.TeacherTitlesService;
 
 // global using vocea_universitatii.Models;
 
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IFacultyService, FacultyService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<ITeacherTitleService, TeacherTitleService>();
 builder.Services.AddDbContext<DatabaseContext>();
 
 // Use AppConfiguration singleton to manage secrets.

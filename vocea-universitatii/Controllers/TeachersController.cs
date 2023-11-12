@@ -59,6 +59,17 @@ public class TeachersController : ControllerBase
         return Ok(result);
     }
     
+    [HttpPut("title")]
+    public async Task<ActionResult<List<TeacherSendDTO>>> UpdateTeacherTitle(TeacherUpdateDTO request)
+    {
+        var result = await _teacherService.UpdateTeacher(request);
+        if (result is null)
+        {
+            return NotFound("Didn't find the teacher");
+        }
+        return Ok(result);
+    }
+    
     [HttpPut("addTeacherDepartmentMembership")]
     public async Task<ActionResult<TeacherSendDTO>> AddTeacherDepartmentMembership(long teacherId, long departmentId)
     {

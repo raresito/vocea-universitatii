@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using vocea_universitatii.Helpers;
@@ -11,9 +12,11 @@ using vocea_universitatii.Helpers;
 namespace vocea_universitatii.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class FacultyContextModelSnapshot : ModelSnapshot
+    [Migration("20231112153237_CreatedTeacherTitleEntity")]
+    partial class CreatedTeacherTitleEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,8 +235,8 @@ namespace vocea_universitatii.Migrations
                     b.Property<int?>("DeletedByid")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("text");
+                    b.Property<long>("Title")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -246,9 +249,6 @@ namespace vocea_universitatii.Migrations
                     b.HasIndex("CreatedByid");
 
                     b.HasIndex("DeletedByid");
-
-                    b.HasIndex("Title")
-                        .IsUnique();
 
                     b.HasIndex("UpdatedByid");
 
