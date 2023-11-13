@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using vocea_universitatii.Helpers;
@@ -11,9 +12,11 @@ using vocea_universitatii.Helpers;
 namespace vocea_universitatii.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class FacultyContextModelSnapshot : ModelSnapshot
+    [Migration("20231113165013_FixLanguages")]
+    partial class FixLanguages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,45 +61,6 @@ namespace vocea_universitatii.Migrations
                             Id = 3L,
                             EndYear = 2025,
                             StartYear = 2024
-                        });
-                });
-
-            modelBuilder.Entity("vocea_universitatii.Models.Cohort", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("CohortName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cohorts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CohortName = "Subgrupa"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CohortName = "Grupa"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CohortName = "Serie"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CohortName = "An"
                         });
                 });
 
@@ -206,88 +170,6 @@ namespace vocea_universitatii.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Language");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            LanguageName = "English"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            LanguageName = "French"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            LanguageName = "German"
-                        });
-                });
-
-            modelBuilder.Entity("vocea_universitatii.Models.StudentCohort", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AcademicYearId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("CohortTypeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("CreatedByid")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("DeletedByid")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("ParentStudentCohortId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Size")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("StudyProgramId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("StudyYearId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("UpdatedByid")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AcademicYearId");
-
-                    b.HasIndex("CohortTypeId");
-
-                    b.HasIndex("CreatedByid");
-
-                    b.HasIndex("DeletedByid");
-
-                    b.HasIndex("ParentStudentCohortId");
-
-                    b.HasIndex("StudyProgramId");
-
-                    b.HasIndex("StudyYearId");
-
-                    b.HasIndex("UpdatedByid");
-
-                    b.ToTable("StudentCohorts");
                 });
 
             modelBuilder.Entity("vocea_universitatii.Models.StudyProgram", b =>
@@ -339,75 +221,6 @@ namespace vocea_universitatii.Migrations
                     b.HasIndex("UpdatedByid");
 
                     b.ToTable("StudyPrograms");
-                });
-
-            modelBuilder.Entity("vocea_universitatii.Models.StudyProgramAcademicYearEnrollments", b =>
-                {
-                    b.Property<long>("StudyProgramId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("AcademicYearId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("StudyProgramId", "AcademicYearId");
-
-                    b.HasIndex("AcademicYearId");
-
-                    b.ToTable("StudyProgramAcademicYearEnrollments");
-                });
-
-            modelBuilder.Entity("vocea_universitatii.Models.StudyYear", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StudyYears");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Name = "Anul I - Licență"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Name = "Anul II - Licență"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Name = "Anul III - Licență"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Name = "Anul IV - Licență"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            Name = "Anul I - Master"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Name = "Anul II - Master"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            Name = "Doctorat"
-                        });
                 });
 
             modelBuilder.Entity("vocea_universitatii.Models.Teacher", b =>
@@ -632,67 +445,6 @@ namespace vocea_universitatii.Migrations
                     b.Navigation("UpdatedBy");
                 });
 
-            modelBuilder.Entity("vocea_universitatii.Models.StudentCohort", b =>
-                {
-                    b.HasOne("vocea_universitatii.Models.AcademicYear", "AcademicYear")
-                        .WithMany("StudentCohorts")
-                        .HasForeignKey("AcademicYearId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("vocea_universitatii.Models.Cohort", "CohortType")
-                        .WithMany("StudentCohorts")
-                        .HasForeignKey("CohortTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("vocea_universitatii.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedByid");
-
-                    b.HasOne("vocea_universitatii.User", "DeletedBy")
-                        .WithMany()
-                        .HasForeignKey("DeletedByid");
-
-                    b.HasOne("vocea_universitatii.Models.StudentCohort", "ParentStudentCohort")
-                        .WithMany()
-                        .HasForeignKey("ParentStudentCohortId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("vocea_universitatii.Models.StudyProgram", "StudyProgram")
-                        .WithMany("StudentCohorts")
-                        .HasForeignKey("StudyProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("vocea_universitatii.Models.StudyYear", "StudyYear")
-                        .WithMany("StudentCohorts")
-                        .HasForeignKey("StudyYearId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("vocea_universitatii.User", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedByid");
-
-                    b.Navigation("AcademicYear");
-
-                    b.Navigation("CohortType");
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("DeletedBy");
-
-                    b.Navigation("ParentStudentCohort");
-
-                    b.Navigation("StudyProgram");
-
-                    b.Navigation("StudyYear");
-
-                    b.Navigation("UpdatedBy");
-                });
-
             modelBuilder.Entity("vocea_universitatii.Models.StudyProgram", b =>
                 {
                     b.HasOne("vocea_universitatii.User", "CreatedBy")
@@ -728,25 +480,6 @@ namespace vocea_universitatii.Migrations
                     b.Navigation("Language");
 
                     b.Navigation("UpdatedBy");
-                });
-
-            modelBuilder.Entity("vocea_universitatii.Models.StudyProgramAcademicYearEnrollments", b =>
-                {
-                    b.HasOne("vocea_universitatii.Models.AcademicYear", "AcademicYear")
-                        .WithMany("StudyProgramAcademicYearEnrollments")
-                        .HasForeignKey("AcademicYearId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("vocea_universitatii.Models.StudyProgram", "StudyProgram")
-                        .WithMany("StudyProgramAcademicYearEnrollments")
-                        .HasForeignKey("StudyProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AcademicYear");
-
-                    b.Navigation("StudyProgram");
                 });
 
             modelBuilder.Entity("vocea_universitatii.Models.Teacher", b =>
@@ -834,18 +567,6 @@ namespace vocea_universitatii.Migrations
                     b.Navigation("UpdatedBy");
                 });
 
-            modelBuilder.Entity("vocea_universitatii.Models.AcademicYear", b =>
-                {
-                    b.Navigation("StudentCohorts");
-
-                    b.Navigation("StudyProgramAcademicYearEnrollments");
-                });
-
-            modelBuilder.Entity("vocea_universitatii.Models.Cohort", b =>
-                {
-                    b.Navigation("StudentCohorts");
-                });
-
             modelBuilder.Entity("vocea_universitatii.Models.Department", b =>
                 {
                     b.Navigation("TeacherDepartmentMemberships");
@@ -861,18 +582,6 @@ namespace vocea_universitatii.Migrations
             modelBuilder.Entity("vocea_universitatii.Models.Language", b =>
                 {
                     b.Navigation("StudyPrograms");
-                });
-
-            modelBuilder.Entity("vocea_universitatii.Models.StudyProgram", b =>
-                {
-                    b.Navigation("StudentCohorts");
-
-                    b.Navigation("StudyProgramAcademicYearEnrollments");
-                });
-
-            modelBuilder.Entity("vocea_universitatii.Models.StudyYear", b =>
-                {
-                    b.Navigation("StudentCohorts");
                 });
 
             modelBuilder.Entity("vocea_universitatii.Models.Teacher", b =>

@@ -19,5 +19,10 @@ public class FacultyEntityTypeConfiguration : IEntityTypeConfiguration<Faculty>
             .WithOne(c => c.Faculty)
             .HasForeignKey(c => c.FacultyId)
             .IsRequired();
+        builder
+            .HasMany<StudyProgram>(s => s.StudyPrograms)
+            .WithOne(c => c.Faculty)
+            .HasForeignKey(c => c.FacultyId)
+            .IsRequired();
     }
 }

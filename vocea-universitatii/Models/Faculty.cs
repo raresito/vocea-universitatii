@@ -9,4 +9,6 @@ public class Faculty : BaseModel
     public String ShortName { get; set; }
     
     public ICollection<Department> Departments { get; set; }
+    
+    public ICollection<StudyProgram> StudyPrograms { get; set; }
 }

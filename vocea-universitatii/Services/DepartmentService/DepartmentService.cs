@@ -33,23 +33,20 @@ public class DepartmentService : IDepartmentService
         {
             FullName = departmentCreateDto.FullName,
             FacultyId = departmentCreateDto.FacultyId,
-            // Faculty = _facultyService.GetSingleFaculty(departmentCreateDto.FacultyId).Result
         };
     }
     
     public async Task<List<DepartmentSendDTO>> GetAllDepartments()
     {
         var databaseDepartments = await _context.Departments.ToListAsync();
-        var departments = databaseDepartments.Select(DepartmentToDepartmentSendDto).ToList();
-        return departments;
+        return databaseDepartments.Select(DepartmentToDepartmentSendDto).ToList();
     }
 
     public async Task<DepartmentSendDTO> GetSingleDepartment(long id)
     {
         var databaseDepartment = await _context.Departments.FindAsync(id);
         if (databaseDepartment == null) return null;
-        var department = DepartmentToDepartmentSendDto(databaseDepartment);
-        return department;
+        return DepartmentToDepartmentSendDto(databaseDepartment);
     }
 
     public async Task<List<DepartmentSendDTO>> AddDepartment(DepartmentCreateDTO department)

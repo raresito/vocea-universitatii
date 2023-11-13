@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using vocea_universitatii.Helpers;
@@ -11,9 +12,11 @@ using vocea_universitatii.Helpers;
 namespace vocea_universitatii.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class FacultyContextModelSnapshot : ModelSnapshot
+    [Migration("20231113185132_AddedStudentCohortTableAndCohortsAndStudyYearTables")]
+    partial class AddedStudentCohortTableAndCohortsAndStudyYearTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,28 +79,6 @@ namespace vocea_universitatii.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cohorts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CohortName = "Subgrupa"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CohortName = "Grupa"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CohortName = "Serie"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CohortName = "An"
-                        });
                 });
 
             modelBuilder.Entity("vocea_universitatii.Models.Department", b =>
@@ -371,43 +352,6 @@ namespace vocea_universitatii.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StudyYears");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Name = "Anul I - Licență"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Name = "Anul II - Licență"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Name = "Anul III - Licență"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Name = "Anul IV - Licență"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            Name = "Anul I - Master"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Name = "Anul II - Master"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            Name = "Doctorat"
-                        });
                 });
 
             modelBuilder.Entity("vocea_universitatii.Models.Teacher", b =>
