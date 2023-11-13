@@ -13,6 +13,15 @@ public class DatabaseContext : DbContext
     public DbSet<Department> Departments { get; set; } = null!;
     public DbSet<Teacher> Teachers { get; set; } = null!;
     public DbSet<TeacherTitle> TeacherTitles { get; set; } = null!;
+    
+    public DbSet<AcademicYear> AcademicYears { get; set; } = null!;
+    public DbSet<StudyProgram> StudyPrograms { get; set; } = null!;
+
+    public DbSet<StudentCohort> StudentCohorts { get; set; } = null!;
+
+    public DbSet<Cohort> Cohorts { get; set; } = null!;
+
+    public DbSet<StudyYear> StudyYears { get; set; } = null!;
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration configuration, AppConfiguration config)
         : base(options)
@@ -49,9 +58,28 @@ public class DatabaseContext : DbContext
         new DepartmentEntityTypeConfiguration().Configure(modelBuilder.Entity<Department>());
         new TeacherEntityTypeConfiguration().Configure(modelBuilder.Entity<Teacher>());
         new TeacherTitleEntityTypeConfiguration().Configure(modelBuilder.Entity<TeacherTitle>());
-
+        new AcademicYearEntityTypeConfiguration().Configure(modelBuilder.Entity<AcademicYear>());
+        new StudyProgramEntityTypeConfiguration().Configure(modelBuilder.Entity<StudyProgram>());
+        new LanguageEntityTypeConfiguration().Configure(modelBuilder.Entity<Language>());
+        new StudentCohortEntityTypeConfiguration().Configure(modelBuilder.Entity<StudentCohort>());
+        new CohortsEntityTypeConfiguration().Configure(modelBuilder.Entity<Cohort>());
+        
         modelBuilder.Entity<TeacherDepartmentMembership>()
             .HasKey(lc => new { lc.TeacherId, lc.DepartmentId });
+        
+        modelBuilder.Entity<StudyProgramAcademicYearEnrollments>()
+            .HasKey(spaye => new { spaye.StudyProgramId, spaye.AcademicYearId });
+        
+        modelBuilder.Entity<StudyYear>()
+            .HasData(
+                new StudyYear { Id = 1, Name = "Anul I - Licență" },
+                new StudyYear { Id = 2, Name = "Anul II - Licență" },
+                new StudyYear { Id = 3, Name = "Anul III - Licență" },
+                new StudyYear { Id = 4, Name = "Anul IV - Licență" },
+                new StudyYear { Id = 5, Name = "Anul I - Master" },
+                new StudyYear { Id = 6, Name = "Anul II - Master" },
+                new StudyYear { Id = 7, Name = "Doctorat" }
+            );
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
