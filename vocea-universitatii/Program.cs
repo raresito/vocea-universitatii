@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using vocea_universitatii.Helpers;
 using vocea_universitatii.Services.DepartmentService;
+using vocea_universitatii.Services.DisciplineService;
 using vocea_universitatii.Services.FacultyService;
 using vocea_universitatii.Services.StudentCohortService;
 using vocea_universitatii.Services.StudyProgramService;
@@ -23,6 +24,7 @@ builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<ITeacherTitleService, TeacherTitleService>();
 builder.Services.AddScoped<IStudyProgramService, StudyProgramService>();
 builder.Services.AddScoped<IStudentCohortService, StudentCohortService>();
+builder.Services.AddScoped<IDisciplineService, DisciplineService>();
 builder.Services.AddDbContext<DatabaseContext>();
 
 // Use AppConfiguration singleton to manage secrets.

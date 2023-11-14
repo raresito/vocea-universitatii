@@ -22,6 +22,8 @@ public class DatabaseContext : DbContext
     public DbSet<Cohort> Cohorts { get; set; } = null!;
 
     public DbSet<StudyYear> StudyYears { get; set; } = null!;
+    
+    public DbSet<Discipline> Disciplines { get; set; } = null!;
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration configuration, AppConfiguration config)
         : base(options)
@@ -63,6 +65,7 @@ public class DatabaseContext : DbContext
         new LanguageEntityTypeConfiguration().Configure(modelBuilder.Entity<Language>());
         new StudentCohortEntityTypeConfiguration().Configure(modelBuilder.Entity<StudentCohort>());
         new CohortsEntityTypeConfiguration().Configure(modelBuilder.Entity<Cohort>());
+        new DisciplineEntityTypeConfiguration().Configure(modelBuilder.Entity<Discipline>());
         
         modelBuilder.Entity<TeacherDepartmentMembership>()
             .HasKey(lc => new { lc.TeacherId, lc.DepartmentId });

@@ -16,8 +16,11 @@ public class StudyProgram : BaseModel
     
     public ICollection<AcademicYear> AcademicYears { get; set; }
     
-    public ICollection<StudentCohort> StudentCohorts { get; set; }
     
     public ICollection<StudyProgramAcademicYearEnrollments> StudyProgramAcademicYearEnrollments { get; set; }
+    
+    public ICollection<StudentCohort> StudentCohorts { get; set; }
+    
+    public ICollection<Discipline> Disciplines { get; set; }
     
 }
