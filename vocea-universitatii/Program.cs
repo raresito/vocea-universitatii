@@ -25,7 +25,24 @@ builder.Services.AddDbContext<DatabaseContext>();
 
 // Use AppConfiguration singleton to manage secrets.
 var config = new AppConfiguration();
-config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key"];
+
+Console.WriteLine(builder.Environment.EnvironmentName);
+// Database selection based on Environment
+if (builder.Environment.EnvironmentName == "Staging")
+{
+    Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"]);
+    config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"];
+} else if (builder.Environment.EnvironmentName == "Development")
+{
+    Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"]);
+    config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"];
+}
+else
+{
+    throw new Exception("Environment not set. Cannot choose Database.");
+}
+Console.WriteLine(config.ApiKey);
+
 builder.Services.AddSingleton<AppConfiguration>(config);
 
 var app = builder.Build();
