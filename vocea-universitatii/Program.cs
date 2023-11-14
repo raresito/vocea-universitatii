@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using vocea_universitatii.Helpers;
 using vocea_universitatii.Services.DepartmentService;
 using vocea_universitatii.Services.FacultyService;
+using vocea_universitatii.Services.StudentCohortService;
 using vocea_universitatii.Services.StudyProgramService;
 using vocea_universitatii.Services.TeacherService;
 using vocea_universitatii.Services.TeacherTitlesService;
@@ -21,20 +22,21 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<ITeacherTitleService, TeacherTitleService>();
 builder.Services.AddScoped<IStudyProgramService, StudyProgramService>();
+builder.Services.AddScoped<IStudentCohortService, StudentCohortService>();
 builder.Services.AddDbContext<DatabaseContext>();
 
 // Use AppConfiguration singleton to manage secrets.
 var config = new AppConfiguration();
 
-Console.WriteLine(builder.Environment.EnvironmentName);
+// Console.WriteLine(builder.Environment.EnvironmentName);
 // Database selection based on Environment
 if (builder.Environment.EnvironmentName == "Staging")
 {
-    Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"]);
+    // Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"]);
     config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"];
 } else if (builder.Environment.EnvironmentName == "Development")
 {
-    Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"]);
+    // Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"]);
     config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"];
 }
 else

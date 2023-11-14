@@ -1,4 +1,5 @@
-﻿using vocea_universitatii.Models.DTOs;
+﻿using vocea_universitatii.Models;
+using vocea_universitatii.Models.DTOs;
 
 namespace vocea_universitatii.Services.StudyProgramService;
 
@@ -14,5 +15,5 @@ public interface IStudyProgramService
     
     Task<List<StudyProgramSendDTO>> DeleteStudyProgramAsync(long id);
 
-    // StudyProgramSendDTO StudyProgramToStudyProgramSendDto(StudyProgram studyProgram);
+    Task<StudyProgramSendDTO> StudyProgramToStudyProgramSendDtoAsync(StudyProgram studyProgram);
 }
