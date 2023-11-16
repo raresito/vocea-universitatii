@@ -48,6 +48,7 @@ public class StudyProgramService : IStudyProgramService
     {
         var databaseStudyPrograms = await _context.StudyPrograms
             .Include(sp => sp.Language)
+            .Include(sp => sp.Disciplines)
             .ToListAsync();
         var studyProgramsTasks =  databaseStudyPrograms.Select(sp => StudyProgramToStudyProgramSendDtoAsync(sp));
         var studyPrograms = await Task.WhenAll(studyProgramsTasks);
@@ -58,6 +59,7 @@ public class StudyProgramService : IStudyProgramService
     {
         var databaseStudyProgram = await _context.StudyPrograms
             .Include(sp => sp.Language)
+            .Include(sp => sp.Disciplines)
             .SingleOrDefaultAsync(sp => sp.Id == id);
         return await StudyProgramToStudyProgramSendDtoAsync(databaseStudyProgram);
     }

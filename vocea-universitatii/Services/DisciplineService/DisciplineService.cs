@@ -46,6 +46,7 @@ public class DisciplineService : IDisciplineService
     {
         var databaseDisciplines = await _context.Disciplines
             .Include(d => d.StudyProgram)
+            .ThenInclude(sp => sp.Language)
             .ToListAsync();
         var disciplinesTasks =  databaseDisciplines.Select(sp => DisciplineToDisciplineSendDtoAsync(sp));
         var disciplines = await Task.WhenAll(disciplinesTasks);
@@ -56,6 +57,7 @@ public class DisciplineService : IDisciplineService
     {
         var databaseDiscipline = await _context.Disciplines
             .Include(d => d.StudyProgram)
+            .ThenInclude(sp => sp.Language)
             .SingleOrDefaultAsync(sp => sp.Id == id);
         return await DisciplineToDisciplineSendDtoAsync(databaseDiscipline);
     }

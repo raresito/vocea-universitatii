@@ -13,5 +13,10 @@ public class DisciplineEntityTypeConfiguration : IEntityTypeConfiguration<Discip
         builder
             .HasOne<StudyProgram>(d => d.StudyProgram)
             .WithMany(sp => sp.Disciplines);
+        builder
+            .HasOne<Discipline>(d => d.ParentDiscipline)
+            .WithMany(d => d.ChildOptionslDisciplines)
+            .HasForeignKey(d => d.ParentDisciplineId)
+            .IsRequired(false);
     }
 }

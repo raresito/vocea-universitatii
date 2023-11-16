@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using vocea_universitatii.Helpers;
@@ -11,9 +12,11 @@ using vocea_universitatii.Helpers;
 namespace vocea_universitatii.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class FacultyContextModelSnapshot : ModelSnapshot
+    [Migration("20231114193237_FixedDisciplineAddedBaseModel")]
+    partial class FixedDisciplineAddedBaseModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,9 +179,6 @@ namespace vocea_universitatii.Migrations
                     b.Property<bool>("Optional")
                         .HasColumnType("boolean");
 
-                    b.Property<long?>("ParentDisciplineId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("StudyProgramId")
                         .HasColumnType("bigint");
 
@@ -193,8 +193,6 @@ namespace vocea_universitatii.Migrations
                     b.HasIndex("CreatedByid");
 
                     b.HasIndex("DeletedByid");
-
-                    b.HasIndex("ParentDisciplineId");
 
                     b.HasIndex("StudyProgramId");
 
@@ -682,10 +680,6 @@ namespace vocea_universitatii.Migrations
                         .WithMany()
                         .HasForeignKey("DeletedByid");
 
-                    b.HasOne("vocea_universitatii.Models.Discipline", "ParentDiscipline")
-                        .WithMany("ChildOptionslDisciplines")
-                        .HasForeignKey("ParentDisciplineId");
-
                     b.HasOne("vocea_universitatii.Models.StudyProgram", "StudyProgram")
                         .WithMany("Disciplines")
                         .HasForeignKey("StudyProgramId")
@@ -699,8 +693,6 @@ namespace vocea_universitatii.Migrations
                     b.Navigation("CreatedBy");
 
                     b.Navigation("DeletedBy");
-
-                    b.Navigation("ParentDiscipline");
 
                     b.Navigation("StudyProgram");
 
@@ -943,11 +935,6 @@ namespace vocea_universitatii.Migrations
             modelBuilder.Entity("vocea_universitatii.Models.Department", b =>
                 {
                     b.Navigation("TeacherDepartmentMemberships");
-                });
-
-            modelBuilder.Entity("vocea_universitatii.Models.Discipline", b =>
-                {
-                    b.Navigation("ChildOptionslDisciplines");
                 });
 
             modelBuilder.Entity("vocea_universitatii.Models.Faculty", b =>

@@ -1,6 +1,6 @@
 ﻿namespace vocea_universitatii.Models;
 
-public class Discipline
+public class Discipline : BaseModel
 {
     public long Id { get; set; }
 
@@ -13,4 +13,10 @@ public class Discipline
     public long StudyProgramId { get; set; }
 
     public StudyProgram StudyProgram { get; set; }
+    
+    public long? ParentDisciplineId { get; set; }
+    
+    public Discipline? ParentDiscipline { get; set; }
+    
+    public ICollection<Discipline> ChildOptionslDisciplines { get; set; }
 }
