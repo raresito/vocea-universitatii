@@ -11,4 +11,6 @@ public class DisciplineUpdateDTO
     public bool Optional { get; set; }
     
     public long StudyProgramId { get; set; }
+    
+    public long EvaluationMethodId { get; set; }
 }

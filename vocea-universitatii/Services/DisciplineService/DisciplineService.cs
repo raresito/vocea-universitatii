@@ -3,6 +3,7 @@ using vocea_universitatii.Helpers;
 using vocea_universitatii.Models;
 using vocea_universitatii.Models.DTOs;
 using vocea_universitatii.Models.DTOs.DisciplineDTOs;
+using vocea_universitatii.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
 using vocea_universitatii.Services.FacultyService;
 using vocea_universitatii.Services.StudyProgramService;
 
@@ -27,7 +28,12 @@ public class DisciplineService : IDisciplineService
             FullName = discipline.FullName,
             AbsoluteSemester = discipline.AbsoluteSemester,
             Optional = discipline.Optional,
-            StudyProgram = await _studyProgramService.StudyProgramToStudyProgramSendDtoAsync(discipline.StudyProgram)
+            StudyProgram = await _studyProgramService.StudyProgramToStudyProgramSendDtoAsync(discipline.StudyProgram),
+            EvaluationMethod = new EvaluationMethodSendDTO()
+            {
+                Id = discipline.EvaluationMethod.Id,
+                Name = discipline.EvaluationMethod.Name
+            }
         };
     }
 
@@ -38,7 +44,8 @@ public class DisciplineService : IDisciplineService
             FullName = disciplineCreateDto.FullName,
             AbsoluteSemester = disciplineCreateDto.AbsoluteSemester,
             Optional = disciplineCreateDto.Optional,
-            StudyProgramId = disciplineCreateDto.StudyProgramId
+            StudyProgramId = disciplineCreateDto.StudyProgramId,
+            EvaluationMethodId = disciplineCreateDto.EvaluationMethodId
         };
     }
     
@@ -47,6 +54,7 @@ public class DisciplineService : IDisciplineService
         var databaseDisciplines = await _context.Disciplines
             .Include(d => d.StudyProgram)
             .ThenInclude(sp => sp.Language)
+            .Include(d => d.EvaluationMethod)
             .ToListAsync();
         var disciplinesTasks =  databaseDisciplines.Select(sp => DisciplineToDisciplineSendDtoAsync(sp));
         var disciplines = await Task.WhenAll(disciplinesTasks);
@@ -58,6 +66,7 @@ public class DisciplineService : IDisciplineService
         var databaseDiscipline = await _context.Disciplines
             .Include(d => d.StudyProgram)
             .ThenInclude(sp => sp.Language)
+            .Include(d => d.EvaluationMethod)
             .SingleOrDefaultAsync(sp => sp.Id == id);
         return await DisciplineToDisciplineSendDtoAsync(databaseDiscipline);
     }
@@ -79,6 +88,7 @@ public class DisciplineService : IDisciplineService
         databaseDiscipline.AbsoluteSemester = request.AbsoluteSemester;
         databaseDiscipline.Optional = request.Optional;
         databaseDiscipline.StudyProgramId = request.StudyProgramId;
+        databaseDiscipline.EvaluationMethodId = request.EvaluationMethodId;
 
         await _context.SaveChangesAsync();
 

@@ -10,6 +10,12 @@ public class Discipline : BaseModel
 
     public bool Optional { get; set; }
     
+    public bool Facultativ { get; set; }
+    
+    public long EvaluationMethodId { get; set; }
+    
+    public EvaluationMethod EvaluationMethod { get; set; }
+    
     public long StudyProgramId { get; set; }
 
     public StudyProgram StudyProgram { get; set; }

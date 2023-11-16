@@ -24,6 +24,8 @@ public class DatabaseContext : DbContext
     public DbSet<StudyYear> StudyYears { get; set; } = null!;
     
     public DbSet<Discipline> Disciplines { get; set; } = null!;
+    
+    public DbSet<EvaluationMethod> EvaluationMethods { get; set; } = null!;
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration configuration, AppConfiguration config)
         : base(options)
@@ -66,6 +68,7 @@ public class DatabaseContext : DbContext
         new StudentCohortEntityTypeConfiguration().Configure(modelBuilder.Entity<StudentCohort>());
         new CohortsEntityTypeConfiguration().Configure(modelBuilder.Entity<Cohort>());
         new DisciplineEntityTypeConfiguration().Configure(modelBuilder.Entity<Discipline>());
+        new EvaluationMethodEntityTypeConfiguration().Configure(modelBuilder.Entity<EvaluationMethod>());
         
         modelBuilder.Entity<TeacherDepartmentMembership>()
             .HasKey(lc => new { lc.TeacherId, lc.DepartmentId });

@@ -1,4 +1,6 @@
-﻿namespace vocea_universitatii.Models.DTOs.DisciplineDTOs;
+﻿using vocea_universitatii.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
+
+namespace vocea_universitatii.Models.DTOs.DisciplineDTOs;
 
 public class DisciplineSendDTO
 {
@@ -9,6 +11,8 @@ public class DisciplineSendDTO
     public int AbsoluteSemester { get; set; }
 
     public bool Optional { get; set; }
+    
+    public EvaluationMethodSendDTO EvaluationMethod { get; set; }
     
     public StudyProgramSendDTO StudyProgram { get; set; }
 }
