@@ -1,4 +1,4 @@
-﻿namespace vocea_universitatii.Models;
+﻿namespace VoceaUniversitatii.Models;
 
 public class Language
 {

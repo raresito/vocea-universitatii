@@ -1,4 +1,4 @@
-﻿namespace vocea_universitatii.Models.DTOs.DisciplineDTOs;
+﻿namespace VoceaUniversitatii.Models.DTOs.DisciplineDTOs;
 
 public class DisciplineUpdateDTO
 {

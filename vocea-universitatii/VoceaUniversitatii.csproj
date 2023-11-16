@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>vocea_universitatii</RootNamespace>
+        <RootNamespace>VoceaUniversitatii</RootNamespace>
       <UserSecretsId>8ed9f969-14e9-4e0c-99ed-f2d9353fd28a</UserSecretsId>
   </PropertyGroup>
 

@@ -1,4 +1,4 @@
-﻿namespace vocea_universitatii.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
+﻿namespace VoceaUniversitatii.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
 
 public class EvaluationMethodSendDTO
 {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using vocea_universitatii.Helpers;
-using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs;
-using vocea_universitatii.Services.FacultyService;
+using VoceaUniversitatii.Helpers;
+using VoceaUniversitatii.Models;
+using VoceaUniversitatii.Models.DTOs.DepartmentDTOs;
+using VoceaUniversitatii.Services.FacultyService;
 
-namespace vocea_universitatii.Services.DepartmentService;
+namespace VoceaUniversitatii.Services.DepartmentService;
 
 public class DepartmentService : IDepartmentService
 {

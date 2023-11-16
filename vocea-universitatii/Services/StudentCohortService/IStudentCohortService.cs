@@ -1,6 +1,6 @@
-﻿using vocea_universitatii.Models.DTOs.StudentCohortDTOs;
+﻿using VoceaUniversitatii.Models.DTOs.StudentCohortDTOs;
 
-namespace vocea_universitatii.Services.StudentCohortService;
+namespace VoceaUniversitatii.Services.StudentCohortService;
 
 public interface IStudentCohortService
 {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using vocea_universitatii.Models;
+using VoceaUniversitatii.Models;
 
-namespace vocea_universitatii.Helpers;
+namespace VoceaUniversitatii.Helpers.EntityTypeConfigurations;
 
 public class TeacherEntityTypeConfiguration : IEntityTypeConfiguration<Teacher>
 {

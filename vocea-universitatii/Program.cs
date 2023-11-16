@@ -1,11 +1,11 @@
-using vocea_universitatii.Helpers;
-using vocea_universitatii.Services.DepartmentService;
-using vocea_universitatii.Services.DisciplineService;
-using vocea_universitatii.Services.FacultyService;
-using vocea_universitatii.Services.StudentCohortService;
-using vocea_universitatii.Services.StudyProgramService;
-using vocea_universitatii.Services.TeacherService;
-using vocea_universitatii.Services.TeacherTitlesService;
+using VoceaUniversitatii.Helpers;
+using VoceaUniversitatii.Services.DepartmentService;
+using VoceaUniversitatii.Services.DisciplineService;
+using VoceaUniversitatii.Services.FacultyService;
+using VoceaUniversitatii.Services.StudentCohortService;
+using VoceaUniversitatii.Services.StudyProgramService;
+using VoceaUniversitatii.Services.TeacherService;
+using VoceaUniversitatii.Services.TeacherTitleService;
 
 // global using vocea_universitatii.Models;
 

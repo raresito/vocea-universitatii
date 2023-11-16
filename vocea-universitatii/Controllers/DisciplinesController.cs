@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs.DisciplineDTOs;
-using vocea_universitatii.Services.DisciplineService;
+using VoceaUniversitatii.Models;
+using VoceaUniversitatii.Models.DTOs.DisciplineDTOs;
+using VoceaUniversitatii.Services.DisciplineService;
 
-namespace vocea_universitatii.Controllers;
+namespace VoceaUniversitatii.Controllers;
 
 [ApiController]
 [Route("[controller]")]

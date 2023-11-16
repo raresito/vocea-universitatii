@@ -1,7 +1,7 @@
-﻿using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs.DisciplineDTOs;
+﻿using VoceaUniversitatii.Models;
+using VoceaUniversitatii.Models.DTOs.DisciplineDTOs;
 
-namespace vocea_universitatii.Services.DisciplineService;
+namespace VoceaUniversitatii.Services.DisciplineService;
 
 public interface IDisciplineService
 {

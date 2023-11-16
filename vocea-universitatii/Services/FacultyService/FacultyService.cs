@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using vocea_universitatii.Helpers;
-using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs;
+using VoceaUniversitatii.Helpers;
+using VoceaUniversitatii.Models.DTOs.FacultyDTOs;
 
-namespace vocea_universitatii.Services.FacultyService;
+namespace VoceaUniversitatii.Services.FacultyService;
 
 public class FacultyService : IFacultyService
 {

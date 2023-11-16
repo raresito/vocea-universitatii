@@ -1,7 +1,7 @@
-﻿using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs;
+﻿using VoceaUniversitatii.Models;
+using VoceaUniversitatii.Models.DTOs.DepartmentDTOs;
 
-namespace vocea_universitatii.Services.DepartmentService;
+namespace VoceaUniversitatii.Services.DepartmentService;
 
 public interface IDepartmentService
 {

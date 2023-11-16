@@ -1,4 +1,7 @@
-﻿namespace vocea_universitatii.Models.DTOs;
+﻿using VoceaUniversitatii.Models.DTOs.DepartmentDTOs;
+using VoceaUniversitatii.Models.DTOs.TeacherDTOs.TeacherTitleDTOs;
+
+namespace VoceaUniversitatii.Models.DTOs.TeacherDTOs;
 
 public class TeacherSendDTO
 {

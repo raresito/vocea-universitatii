@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using vocea_universitatii.Helpers;
-using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs;
-using vocea_universitatii.Services.DepartmentService;
+using VoceaUniversitatii.Helpers;
+using VoceaUniversitatii.Models;
+using VoceaUniversitatii.Models.DTOs.DepartmentDTOs;
+using VoceaUniversitatii.Models.DTOs.TeacherDTOs;
+using VoceaUniversitatii.Models.DTOs.TeacherDTOs.TeacherTitleDTOs;
+using VoceaUniversitatii.Services.DepartmentService;
 
-namespace vocea_universitatii.Services.TeacherService;
+namespace VoceaUniversitatii.Services.TeacherService;
 
 public class TeacherService : ITeacherService
 {

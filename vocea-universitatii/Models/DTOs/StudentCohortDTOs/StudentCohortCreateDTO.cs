@@ -1,4 +1,4 @@
-﻿namespace vocea_universitatii.Models.DTOs.StudentCohortDTOs;
+﻿namespace VoceaUniversitatii.Models.DTOs.StudentCohortDTOs;
 
 public class StudentCohortCreateDTO
 {

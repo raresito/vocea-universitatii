@@ -1,7 +1,6 @@
-﻿using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs;
+﻿using VoceaUniversitatii.Models.DTOs.FacultyDTOs;
 
-namespace vocea_universitatii.Services.FacultyService;
+namespace VoceaUniversitatii.Services.FacultyService;
 
 public interface IFacultyService
 {

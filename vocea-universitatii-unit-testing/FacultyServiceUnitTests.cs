@@ -1,5 +1,5 @@
 ﻿using Moq;
-using vocea_universitatii.Services.FacultyService;
+using VoceaUniversitatii.Services.FacultyService;
 
 namespace vocea_universitatii_unit_testing;
 

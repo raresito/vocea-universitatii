@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using vocea_universitatii_unit_testing.MockServices;
-using vocea_universitatii.Controllers;
-using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs;
-using vocea_universitatii.Services.FacultyService;
+using VoceaUniversitatii.Controllers;
+using VoceaUniversitatii.Models.DTOs.FacultyDTOs;
+using VoceaUniversitatii.Services.FacultyService;
 
 namespace vocea_universitatii_unit_testing;
 

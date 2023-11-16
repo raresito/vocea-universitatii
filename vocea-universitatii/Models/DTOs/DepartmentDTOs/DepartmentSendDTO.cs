@@ -1,4 +1,6 @@
-﻿namespace vocea_universitatii.Models.DTOs;
+﻿using VoceaUniversitatii.Models.DTOs.FacultyDTOs;
+
+namespace VoceaUniversitatii.Models.DTOs.DepartmentDTOs;
 
 public class DepartmentSendDTO
 {

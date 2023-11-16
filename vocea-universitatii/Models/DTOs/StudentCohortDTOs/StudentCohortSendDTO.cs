@@ -1,4 +1,6 @@
-﻿namespace vocea_universitatii.Models.DTOs.StudentCohortDTOs;
+﻿using VoceaUniversitatii.Models.DTOs.StudyProgramDTOs;
+
+namespace VoceaUniversitatii.Models.DTOs.StudentCohortDTOs;
 
 public class StudentCohortSendDTO
 {

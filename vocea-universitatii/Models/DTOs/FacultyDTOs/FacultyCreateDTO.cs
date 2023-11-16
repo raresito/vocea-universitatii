@@ -1,4 +1,4 @@
-﻿namespace vocea_universitatii.Models.DTOs;
+﻿namespace VoceaUniversitatii.Models.DTOs.FacultyDTOs;
 
 public class FacultyCreateDTO
 {

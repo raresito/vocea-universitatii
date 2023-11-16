@@ -1,6 +1,7 @@
-﻿using vocea_universitatii.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
+﻿using VoceaUniversitatii.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
+using VoceaUniversitatii.Models.DTOs.StudyProgramDTOs;
 
-namespace vocea_universitatii.Models.DTOs.DisciplineDTOs;
+namespace VoceaUniversitatii.Models.DTOs.DisciplineDTOs;
 
 public class DisciplineSendDTO
 {

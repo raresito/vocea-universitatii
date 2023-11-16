@@ -1,6 +1,4 @@
-﻿using vocea_universitatii.Models;
-
-namespace vocea_universitatii;
+﻿namespace VoceaUniversitatii.Models;
 
 public class BaseModel
 {

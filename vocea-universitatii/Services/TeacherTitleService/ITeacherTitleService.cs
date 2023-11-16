@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs;
+﻿using VoceaUniversitatii.Models.DTOs.TeacherDTOs.TeacherTitleDTOs;
 
-namespace vocea_universitatii.Services.TeacherTitlesService;
+namespace VoceaUniversitatii.Services.TeacherTitleService;
 
 public interface ITeacherTitleService
 {

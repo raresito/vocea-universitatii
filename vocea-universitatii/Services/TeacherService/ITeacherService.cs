@@ -1,6 +1,6 @@
-﻿using vocea_universitatii.Models.DTOs;
+﻿using VoceaUniversitatii.Models.DTOs.TeacherDTOs;
 
-namespace vocea_universitatii.Services.TeacherService;
+namespace VoceaUniversitatii.Services.TeacherService;
 
 public interface ITeacherService
 {

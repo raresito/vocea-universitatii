@@ -1,7 +1,7 @@
-﻿using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs;
+﻿using VoceaUniversitatii.Models;
+using VoceaUniversitatii.Models.DTOs.StudyProgramDTOs;
 
-namespace vocea_universitatii.Services.StudyProgramService;
+namespace VoceaUniversitatii.Services.StudyProgramService;
 
 public interface IStudyProgramService
 {

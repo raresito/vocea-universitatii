@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using vocea_universitatii.Helpers;
-using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs.DisciplineDTOs;
-using vocea_universitatii.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
-using vocea_universitatii.Services.StudyProgramService;
+using VoceaUniversitatii.Helpers;
+using VoceaUniversitatii.Models;
+using VoceaUniversitatii.Models.DTOs.DisciplineDTOs;
+using VoceaUniversitatii.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
+using VoceaUniversitatii.Services.StudyProgramService;
 
-namespace vocea_universitatii.Services.DisciplineService;
+namespace VoceaUniversitatii.Services.DisciplineService;
 
 public class DisciplineService : IDisciplineService
 {

@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using vocea_universitatii.Helpers;
-using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs;
-using vocea_universitatii.Models.DTOs.StudentCohortDTOs;
-using vocea_universitatii.Services.StudyProgramService;
+using VoceaUniversitatii.Helpers;
+using VoceaUniversitatii.Models;
+using VoceaUniversitatii.Models.DTOs;
+using VoceaUniversitatii.Models.DTOs.StudentCohortDTOs;
+using VoceaUniversitatii.Services.StudyProgramService;
 
-namespace vocea_universitatii.Services.StudentCohortService;
+namespace VoceaUniversitatii.Services.StudentCohortService;
 
 public class StudentCohortService : IStudentCohortService
 {

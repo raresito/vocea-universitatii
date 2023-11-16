@@ -1,6 +1,4 @@
-﻿using vocea_universitatii.Controllers;
-
-namespace vocea_universitatii.Models;
+﻿namespace VoceaUniversitatii.Models;
 
 public class Department : BaseModel
 {

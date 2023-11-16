@@ -1,8 +1,8 @@
-﻿using vocea_universitatii.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using VoceaUniversitatii.Helpers.EntityTypeConfigurations;
+using VoceaUniversitatii.Models;
 
-namespace vocea_universitatii.Helpers;
-
-using Microsoft.EntityFrameworkCore;
+namespace VoceaUniversitatii.Helpers;
 
 public class DatabaseContext : DbContext
 {

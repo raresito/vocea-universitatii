@@ -1,4 +1,4 @@
-﻿namespace vocea_universitatii.Helpers;
+﻿namespace VoceaUniversitatii.Helpers;
 
 public class AppConfiguration
 {
