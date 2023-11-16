@@ -1,0 +1,3 @@
+[submodule "vocea-universitatii-data"]
+	path = vocea-universitatii-data
+	url = https://github.com/raresito/vocea-universitatii-data.git
