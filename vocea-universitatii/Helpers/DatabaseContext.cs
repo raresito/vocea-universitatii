@@ -26,6 +26,10 @@ public class DatabaseContext : DbContext
     public DbSet<Discipline> Disciplines { get; set; } = null!;
     
     public DbSet<EvaluationMethod> EvaluationMethods { get; set; } = null!;
+    
+    public DbSet<ActivityType> ActivityTypes { get; set; } = null!;
+    
+    public DbSet<Activity> Activities { get; set; } = null!;
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration configuration, AppConfiguration config)
         : base(options)
@@ -69,6 +73,8 @@ public class DatabaseContext : DbContext
         new CohortsEntityTypeConfiguration().Configure(modelBuilder.Entity<Cohort>());
         new DisciplineEntityTypeConfiguration().Configure(modelBuilder.Entity<Discipline>());
         new EvaluationMethodEntityTypeConfiguration().Configure(modelBuilder.Entity<EvaluationMethod>());
+        new ActivityTypeEntityTypeConfiguration().Configure(modelBuilder.Entity<ActivityType>());
+        new ActivityEntityTypeConfiguration().Configure(modelBuilder.Entity<Activity>());
         
         modelBuilder.Entity<TeacherDepartmentMembership>()
             .HasKey(lc => new { lc.TeacherId, lc.DepartmentId });
@@ -85,6 +91,21 @@ public class DatabaseContext : DbContext
                 new StudyYear { Id = 5, Name = "Anul I - Master" },
                 new StudyYear { Id = 6, Name = "Anul II - Master" },
                 new StudyYear { Id = 7, Name = "Doctorat" }
+            );
+
+        modelBuilder.Entity<EvaluationMethod>()
+            .HasData(
+                new EvaluationMethod { Id = 1, Name = "Examen" },
+                new EvaluationMethod { Id = 2, Name = "Colocviu" },
+                new EvaluationMethod { Id = 3, Name = "Verificare" },
+                new EvaluationMethod { Id = 4, Name = "Calificativ" }
+                );
+
+        modelBuilder.Entity<ActivityType>()
+            .HasData(
+                new ActivityType { Id = 1, Name = "Curs"},
+                new ActivityType { Id = 2, Name = "Seminar"},
+                new ActivityType { Id = 3, Name = "Laborator"}
             );
     }
 

@@ -10,7 +10,4 @@ public class TeacherDepartmentMembership : BaseModel
 
     public bool BaseDepartment { get; set; } = true;
     
-    
-    
-    
 }
