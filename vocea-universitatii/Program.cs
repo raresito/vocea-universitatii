@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using vocea_universitatii.Helpers;
 using vocea_universitatii.Services.DepartmentService;
 using vocea_universitatii.Services.DisciplineService;

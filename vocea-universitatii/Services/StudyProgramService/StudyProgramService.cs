@@ -34,14 +34,14 @@ public class StudyProgramService : IStudyProgramService
         };
     }
 
-    public async Task<StudyProgram> StudyProgramCreateDtoToStudyProgram(StudyProgramCreateDTO studyProgramCreateDto)
+    private async Task<StudyProgram> StudyProgramCreateDtoToStudyProgram(StudyProgramCreateDTO studyProgramCreateDto)
     {
-        return new StudyProgram()
+        return await Task.FromResult(new StudyProgram()
         {
             FullName = studyProgramCreateDto.FullName,
             LanguageId = studyProgramCreateDto.LanguageId,
             FacultyId = studyProgramCreateDto.FacultyId
-        };
+        });
     }
     
     public async Task<List<StudyProgramSendDTO>> GetAllStudyProgramsAsync()

@@ -119,11 +119,10 @@ public class TeacherService : ITeacherService
     
     public async Task<List<TeacherSendDTO>> GetAllTeachers()
     {
-        var databaseTeachers = _context.Teachers
+        var databaseTeachers = await _context.Teachers
             .Include(t => t.Title)
-            .Include(i => i.Departments).ToList();
-        var teachers = databaseTeachers.Select(TeacherToTeacherSendDto).ToList();
-        return teachers;
+            .Include(i => i.Departments).ToListAsync();
+        return databaseTeachers.Select(TeacherToTeacherSendDto).ToList();
     }
     
     public async Task<TeacherSendDTO> GetSingleTeacher(long id)

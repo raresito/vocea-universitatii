@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using vocea_universitatii.Helpers;
 using vocea_universitatii.Models;
-using vocea_universitatii.Models.DTOs;
 using vocea_universitatii.Models.DTOs.DisciplineDTOs;
 using vocea_universitatii.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
-using vocea_universitatii.Services.FacultyService;
 using vocea_universitatii.Services.StudyProgramService;
 
 namespace vocea_universitatii.Services.DisciplineService;
@@ -37,16 +35,16 @@ public class DisciplineService : IDisciplineService
         };
     }
 
-    public async Task<Discipline> DisciplineCreateDtoToDiscipline(DisciplineCreateDTO disciplineCreateDto)
+    private async Task<Discipline> DisciplineCreateDtoToDiscipline(DisciplineCreateDTO disciplineCreateDto)
     {
-        return new Discipline()
+        return await Task.FromResult( new Discipline()
         {
             FullName = disciplineCreateDto.FullName,
             AbsoluteSemester = disciplineCreateDto.AbsoluteSemester,
             Optional = disciplineCreateDto.Optional,
             StudyProgramId = disciplineCreateDto.StudyProgramId,
             EvaluationMethodId = disciplineCreateDto.EvaluationMethodId
-        };
+        });
     }
     
     public async Task<List<DisciplineSendDTO>> GetAllDisciplinesAsync()

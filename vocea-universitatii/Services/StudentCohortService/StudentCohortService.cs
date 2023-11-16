@@ -46,10 +46,10 @@ public class StudentCohortService : IStudentCohortService
         };
     }
 
-    public async Task<StudentCohort> StudentCohortCreateDtoToStudentCohort(
+    private async Task<StudentCohort> StudentCohortCreateDtoToStudentCohort(
         StudentCohortCreateDTO studentCohortCreateDto)
     {
-        return new StudentCohort()
+        return await Task.FromResult( new StudentCohort()
         {
             Name = studentCohortCreateDto.Name,
             Size = studentCohortCreateDto.Size,
@@ -58,7 +58,7 @@ public class StudentCohortService : IStudentCohortService
             StudyYearId = studentCohortCreateDto.StudyYearId,
             CohortTypeId = studentCohortCreateDto.CohortTypeId,
             ParentStudentCohortId = studentCohortCreateDto.ParentStudentCohortId
-        };
+        });
     }
     
     public async Task<List<StudentCohortSendDTO>> GetAllStudentCohortsAsync()

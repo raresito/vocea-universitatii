@@ -1,4 +1,4 @@
-﻿namespace vocea_universitatii;
+﻿namespace vocea_universitatii.Models;
 
 public class User
 {
