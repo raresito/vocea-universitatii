@@ -30,6 +30,8 @@ public class DatabaseContext : DbContext
     public DbSet<ActivityType> ActivityTypes { get; set; } = null!;
     
     public DbSet<Activity> Activities { get; set; } = null!;
+    
+    public DbSet<ActivityStudentCohort> ActivityStudentCohorts { get; set; } = null!;
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration configuration, AppConfiguration config)
         : base(options)
@@ -81,6 +83,9 @@ public class DatabaseContext : DbContext
         
         modelBuilder.Entity<StudyProgramAcademicYearEnrollments>()
             .HasKey(spaye => new { spaye.StudyProgramId, spaye.AcademicYearId });
+
+        modelBuilder.Entity<ActivityStudentCohort>()
+            .HasKey(asc => new { asc.ActivityId, asc.StudentCohortId });
         
         modelBuilder.Entity<StudyYear>()
             .HasData(

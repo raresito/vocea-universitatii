@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VoceaUniversitatii.Helpers;
@@ -11,9 +12,11 @@ using VoceaUniversitatii.Helpers;
 namespace vocea_universitatii.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class FacultyContextModelSnapshot : ModelSnapshot
+    [Migration("20231116194746_AddedActivityStudentCohort")]
+    partial class AddedActivityStudentCohort
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

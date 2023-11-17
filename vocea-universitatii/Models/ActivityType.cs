@@ -1,6 +1,6 @@
 ﻿namespace VoceaUniversitatii.Models;
 
-public class ActivityType
+public class ActivityType 
 {
     public long Id { get; set; }
     
