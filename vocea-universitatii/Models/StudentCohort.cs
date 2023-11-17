@@ -5,8 +5,8 @@ public class StudentCohort : BaseModel
     public long Id { get; set; }
     
     public string Name { get; set; }
-    
-    public int Size { get; set; }
+
+    public int Size { get; set; } = 0;
     
     public long AcademicYearId { get; set; }
     

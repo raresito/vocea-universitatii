@@ -10,6 +10,9 @@ public class CohortsEntityTypeConfiguration : IEntityTypeConfiguration<Cohort>
     {
         builder.Property(b => b.Id).ValueGeneratedOnAdd();
         builder.HasKey(c => c.Id);
+        builder
+            .Property(c => c.CohortName)
+            .IsRequired();
         
         builder.HasData(
             new Cohort { Id = 1, CohortName = "Subgrupa" },

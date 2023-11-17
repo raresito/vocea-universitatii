@@ -15,6 +15,9 @@ public class FacultyEntityTypeConfiguration : IEntityTypeConfiguration<Faculty>
             .Property(b => b.FullName)
             .IsRequired();
         builder
+            .Property(b => b.ShortName)
+            .IsRequired();
+        builder
             .HasMany<Department>(c => c.Departments)
             .WithOne(c => c.Faculty)
             .HasForeignKey(c => c.FacultyId)

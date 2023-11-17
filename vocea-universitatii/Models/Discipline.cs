@@ -8,7 +8,7 @@ public class Discipline : BaseModel
 
     public int AbsoluteSemester { get; set; }
 
-    public bool Optional { get; set; }
+    public bool Optional { get; set; } = false;
     
     public bool Facultativ { get; set; }
     

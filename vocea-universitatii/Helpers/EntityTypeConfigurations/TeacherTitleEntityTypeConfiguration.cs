@@ -18,5 +18,8 @@ public class TeacherTitleEntityTypeConfiguration : IEntityTypeConfiguration<Teac
         builder
             .HasIndex(t=> t.Title)
             .IsUnique();
+        builder
+            .Property(tt => tt.Title)
+            .IsRequired();
     }
 }

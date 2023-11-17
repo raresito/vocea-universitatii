@@ -10,6 +10,7 @@ public class EvaluationMethodEntityTypeConfiguration: IEntityTypeConfiguration<E
     {
         builder.Property(b => b.Id).ValueGeneratedOnAdd();
         builder.HasKey(c => c.Id);
+        builder.Property(em => em.Name).IsRequired();
         builder
             .HasMany(em => em.Disciplines)
             .WithOne(d => d.EvaluationMethod)

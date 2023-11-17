@@ -10,8 +10,8 @@ public class TeacherEntityTypeConfiguration : IEntityTypeConfiguration<Teacher>
     {
         builder.Property(b => b.Id).ValueGeneratedOnAdd();
         builder.HasKey(c => c.Id);
-        builder
-            .Property(b => b.CNP)
-            .IsRequired();
+        builder.Property(t => t.FirstName).IsRequired();
+        builder.Property(t => t.LastName).IsRequired();
+        builder.Property(t => t.Email).IsRequired();
     }
 }

@@ -11,6 +11,9 @@ public class DepartmentEntityTypeConfiguration : IEntityTypeConfiguration<Depart
         builder.Property(b => b.Id).ValueGeneratedOnAdd();
         builder.HasKey(c => c.Id);
         builder
+            .Property(d => d.FacultyId)
+            .IsRequired();
+        builder
             .Property(b => b.FullName)
             .IsRequired();
         builder

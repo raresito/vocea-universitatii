@@ -10,6 +10,9 @@ public class DisciplineEntityTypeConfiguration : IEntityTypeConfiguration<Discip
     {
         builder.Property(b => b.Id).ValueGeneratedOnAdd();
         builder.HasKey(c => c.Id);
+        builder.Property(d => d.FullName).IsRequired();
+        builder.Property(d => d.AbsoluteSemester).IsRequired();
+        builder.Property(d => d.Optional).IsRequired();
         builder
             .HasOne<StudyProgram>(d => d.StudyProgram)
             .WithMany(sp => sp.Disciplines);

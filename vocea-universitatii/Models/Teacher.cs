@@ -14,8 +14,6 @@ public class Teacher : BaseModel
 
     public TeacherTitle? Title { get; set; }
     
-    public long CNP { get; set; }
-    
     public ICollection<TeacherDepartmentMembership> TeacherDepartmentMemberships { get; set; }
     
     public ICollection<Department> Departments { get; set; }
