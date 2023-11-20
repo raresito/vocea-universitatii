@@ -1,0 +1,24 @@
+﻿version: '3.4'
+
+networks:
+  dev:
+    driver: bridge
+    
+
+services:
+  voceauniversitatii:
+    image: docker.io/library/voceauniversitatiiapi
+    volumes:
+      - C:/Users/Rares/AppData/Roaming/Microsoft/UserSecrets/$USER_SECRETS_ID:/root/.microsoft/usersecrets/$USER_SECRETS_ID
+    container_name: voceauniversitatiiapi-services
+    ports: 
+      - "8088:80"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - USER_SECRETS_ID=8ed9f969-14e9-4e0c-99ed-f2d9353fd28a
+    networks: 
+      - dev
