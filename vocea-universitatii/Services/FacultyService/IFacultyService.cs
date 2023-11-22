@@ -8,7 +8,7 @@ public interface IFacultyService
     
     Task<FacultySendDTO> GetSingleFaculty(long id);
     
-    Task<List<FacultySendDTO>> AddFaculty(FacultyCreateDTO faculty);
+    Task<FacultySendDTO> AddFaculty(FacultyCreateDTO faculty);
     
     Task<List<FacultySendDTO>> UpdateFaculty(FacultyUpdateDTO request);
     

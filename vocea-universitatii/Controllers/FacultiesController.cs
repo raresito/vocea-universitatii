@@ -33,7 +33,7 @@ public class FacultiesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<List<FacultySendDTO>>> AddFaculty(FacultyCreateDTO faculty)
+    public async Task<ActionResult<FacultySendDTO>> AddFaculty(FacultyCreateDTO faculty)
     {
         var result = await _facultyService.AddFaculty(faculty);
         return Ok(result);

@@ -30,12 +30,11 @@ public class FacultyService : IFacultyService
         return faculty;
     }
 
-    public async Task<List<FacultySendDTO>> AddFaculty(FacultyCreateDTO faculty)
+    public async Task<FacultySendDTO> AddFaculty(FacultyCreateDTO faculty)
     {
-        
         await _context.Faculties.AddAsync(FacultyCreateDTO.FacultyCreateDTOToFaculty(faculty));
         await _context.SaveChangesAsync();
-        return await GetAllFaculties();
+        return await GetSingleFaculty(_context.Faculties.Local.Last().Id);
     }
 
     public async Task<List<FacultySendDTO>> UpdateFaculty(FacultyUpdateDTO request)
