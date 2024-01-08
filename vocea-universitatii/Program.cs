@@ -47,7 +47,7 @@ else
     // config.ApiKey = "postgres://qxjcbemc:krtV_Nh0QqO3kwMLYFSPOcQAQ4GJQA7G@ella.db.elephantsql.com/qxjcbemc";
     throw new Exception("Environment not set. Cannot choose Database.");
 }
-Console.WriteLine(config.ApiKey);
+// Console.WriteLine(config.ApiKey);
 
 builder.Services.AddSingleton<AppConfiguration>(config);
 

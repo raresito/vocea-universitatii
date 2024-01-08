@@ -11,7 +11,6 @@ namespace VoceaUniversitatiiDataModels;
 
 public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContext>
 {
-    protected readonly IConfiguration Configuration;
     private AppConfiguration _config = new AppConfiguration();
 
     public DatabaseContextFactory()
@@ -28,6 +27,6 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
         optionsBuilder.UseNpgsql(DatabaseContext.ElephantSQLConnectionString(_config.ApiKey),
             x => 
                 x.MigrationsAssembly ("VoceaUniversitatiiMigrations"));
-        return new DatabaseContext(optionsBuilder.Options, Configuration, _config);
+        return new DatabaseContext(optionsBuilder.Options, _config);
     }
 }

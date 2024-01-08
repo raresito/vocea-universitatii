@@ -1,15 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using VoceaUniversitatiiConfigurations;
 using VoceaUniversitatiiDataModels;
 using VoceaUniversitatiiDataModels.EntityTypeConfigurations;
 using VoceaUniversitatiiDataModels.Models;
+using Activity = VoceaUniversitatiiDataModels.Models.Activity;
 
 namespace VoceaUniversitatiiDataModels;
 
 public class DatabaseContext : DbContext
 {
-    protected readonly IConfiguration Configuration;
     private AppConfiguration _config;
     
     public DbSet<Faculty> Faculties { get; set; } = null!;
@@ -38,11 +39,10 @@ public class DatabaseContext : DbContext
     
     public DbSet<EvaluationSession> EvaluationSessions { get; set; } = null!;
     
-    public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration configuration, AppConfiguration config)
+    public DatabaseContext(DbContextOptions<DatabaseContext> options, AppConfiguration config)
         : base(options)
     {
         _config = config;
-        Configuration = configuration;
     }
     
     public static string ElephantSQLConnectionString(string ConnectionString)
@@ -64,9 +64,18 @@ public class DatabaseContext : DbContext
         
         // Use Migrations from the dedicated project
         // connect to postgres hosted database on ElephantSQL
-        options.UseNpgsql(ElephantSQLConnectionString(_config.ApiKey),
-            x => 
-                x.MigrationsAssembly ("VoceaUniversitatiiMigrations"));
+        if (_config.DeploymentEnvironment == "LEGACY_MIGRATION")
+        {
+            options.UseNpgsql(_config.ApiKey,
+                x => 
+                    x.MigrationsAssembly ("VoceaUniversitatiiMigrations"));
+        }
+        else
+        {
+            options.UseNpgsql(ElephantSQLConnectionString(_config.ApiKey),
+                x => 
+                    x.MigrationsAssembly ("VoceaUniversitatiiMigrations"));
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
