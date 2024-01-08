@@ -1,5 +1,5 @@
-﻿using VoceaUniversitatii.Models.DTOs.FacultyDTOs;
-using VoceaUniversitatii.Services.FacultyService;
+﻿using VoceaUniversitatii.Services.FacultyService;
+using VoceaUniversitatiiDataModels.Models.DTOs.FacultyDTOs;
 
 namespace vocea_universitatii_unit_testing.MockServices;
 

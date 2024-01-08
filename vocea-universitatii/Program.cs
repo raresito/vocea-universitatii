@@ -35,12 +35,10 @@ var config = new AppConfiguration();
 // Database selection based on Environment
 if (builder.Environment.EnvironmentName == "Staging")
 {
-    Debugger.Launch();
     // Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"]);
     config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"];
 } else if (builder.Environment.EnvironmentName == "Development")
 {
-    Debugger.Launch();
     // Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"]);
     config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"];
 }
