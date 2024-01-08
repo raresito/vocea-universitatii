@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VoceaUniversitatii.Helpers;
-using VoceaUniversitatii.Models;
-using VoceaUniversitatii.Models.DTOs;
-using VoceaUniversitatii.Models.DTOs.StudentCohortDTOs;
 using VoceaUniversitatii.Services.StudyProgramService;
+using VoceaUniversitatiiDataModels;
+using VoceaUniversitatiiDataModels.Models;
+using VoceaUniversitatiiDataModels.Models.DTOs;
+using VoceaUniversitatiiDataModels.Models.DTOs.StudentCohortDTOs;
 
 namespace VoceaUniversitatii.Services.StudentCohortService;
 

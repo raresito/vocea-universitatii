@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VoceaUniversitatii.Helpers;
-using VoceaUniversitatii.Models;
-using VoceaUniversitatii.Models.DTOs;
-using VoceaUniversitatii.Models.DTOs.StudyProgramDTOs;
 using VoceaUniversitatii.Services.FacultyService;
+using VoceaUniversitatiiDataModels;
+using VoceaUniversitatiiDataModels.Models;
+using VoceaUniversitatiiDataModels.Models.DTOs;
+using VoceaUniversitatiiDataModels.Models.DTOs.StudyProgramDTOs;
 
 namespace VoceaUniversitatii.Services.StudyProgramService;
 

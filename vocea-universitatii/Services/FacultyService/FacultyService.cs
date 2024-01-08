@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VoceaUniversitatii.Helpers;
-using VoceaUniversitatii.Models.DTOs.FacultyDTOs;
+using VoceaUniversitatiiDataModels;
+using VoceaUniversitatiiDataModels.Models.DTOs.FacultyDTOs;
 
 namespace VoceaUniversitatii.Services.FacultyService;
 

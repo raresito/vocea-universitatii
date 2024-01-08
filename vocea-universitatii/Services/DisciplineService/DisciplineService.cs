@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VoceaUniversitatii.Helpers;
-using VoceaUniversitatii.Models;
-using VoceaUniversitatii.Models.DTOs.DisciplineDTOs;
-using VoceaUniversitatii.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
 using VoceaUniversitatii.Services.StudyProgramService;
+using VoceaUniversitatiiDataModels;
+using VoceaUniversitatiiDataModels.Models;
+using VoceaUniversitatiiDataModels.Models.DTOs.DisciplineDTOs;
+using VoceaUniversitatiiDataModels.Models.DTOs.DisciplineDTOs.EvaluationMethodDTOs;
 
 namespace VoceaUniversitatii.Services.DisciplineService;
 

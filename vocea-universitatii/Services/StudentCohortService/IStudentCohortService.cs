@@ -1,4 +1,4 @@
-﻿using VoceaUniversitatii.Models.DTOs.StudentCohortDTOs;
+﻿using VoceaUniversitatiiDataModels.Models.DTOs.StudentCohortDTOs;
 
 namespace VoceaUniversitatii.Services.StudentCohortService;
 

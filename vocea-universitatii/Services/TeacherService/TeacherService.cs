@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VoceaUniversitatii.Helpers;
-using VoceaUniversitatii.Models;
-using VoceaUniversitatii.Models.DTOs.DepartmentDTOs;
-using VoceaUniversitatii.Models.DTOs.TeacherDTOs;
-using VoceaUniversitatii.Models.DTOs.TeacherDTOs.TeacherTitleDTOs;
 using VoceaUniversitatii.Services.DepartmentService;
+using VoceaUniversitatiiDataModels;
+using VoceaUniversitatiiDataModels.Models;
+using VoceaUniversitatiiDataModels.Models.DTOs.DepartmentDTOs;
+using VoceaUniversitatiiDataModels.Models.DTOs.TeacherDTOs;
+using VoceaUniversitatiiDataModels.Models.DTOs.TeacherDTOs.TeacherTitleDTOs;
 
 namespace VoceaUniversitatii.Services.TeacherService;
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VoceaUniversitatii.Models;
-using VoceaUniversitatii.Models.DTOs.DisciplineDTOs;
 using VoceaUniversitatii.Services.DisciplineService;
+using VoceaUniversitatiiDataModels.Models;
+using VoceaUniversitatiiDataModels.Models.DTOs.DisciplineDTOs;
 
 namespace VoceaUniversitatii.Controllers;
 

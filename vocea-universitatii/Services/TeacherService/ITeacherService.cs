@@ -1,4 +1,4 @@
-﻿using VoceaUniversitatii.Models.DTOs.TeacherDTOs;
+﻿using VoceaUniversitatiiDataModels.Models.DTOs.TeacherDTOs;
 
 namespace VoceaUniversitatii.Services.TeacherService;
 

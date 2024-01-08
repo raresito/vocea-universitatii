@@ -1,4 +1,4 @@
-using VoceaUniversitatii.Helpers;
+using System.Diagnostics;
 using VoceaUniversitatii.Services.DepartmentService;
 using VoceaUniversitatii.Services.DisciplineService;
 using VoceaUniversitatii.Services.FacultyService;
@@ -6,6 +6,8 @@ using VoceaUniversitatii.Services.StudentCohortService;
 using VoceaUniversitatii.Services.StudyProgramService;
 using VoceaUniversitatii.Services.TeacherService;
 using VoceaUniversitatii.Services.TeacherTitleService;
+using VoceaUniversitatiiConfigurations;
+using VoceaUniversitatiiDataModels;
 
 // global using vocea_universitatii.Models;
 
@@ -33,15 +35,18 @@ var config = new AppConfiguration();
 // Database selection based on Environment
 if (builder.Environment.EnvironmentName == "Staging")
 {
+    Debugger.Launch();
     // Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"]);
     config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"];
 } else if (builder.Environment.EnvironmentName == "Development")
 {
+    Debugger.Launch();
     // Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"]);
     config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"];
 }
 else
 {
+    // config.ApiKey = "postgres://qxjcbemc:krtV_Nh0QqO3kwMLYFSPOcQAQ4GJQA7G@ella.db.elephantsql.com/qxjcbemc";
     throw new Exception("Environment not set. Cannot choose Database.");
 }
 Console.WriteLine(config.ApiKey);

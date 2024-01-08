@@ -1,5 +1,5 @@
-﻿using VoceaUniversitatii.Models;
-using VoceaUniversitatii.Models.DTOs.DisciplineDTOs;
+﻿using VoceaUniversitatiiDataModels.Models;
+using VoceaUniversitatiiDataModels.Models.DTOs.DisciplineDTOs;
 
 namespace VoceaUniversitatii.Services.DisciplineService;
 
