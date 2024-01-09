@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Reflection;
 using VoceaUniversitatii.Services.DepartmentService;
 using VoceaUniversitatii.Services.DisciplineService;
 using VoceaUniversitatii.Services.FacultyService;
@@ -33,28 +34,25 @@ var config = new AppConfiguration();
 
 // Console.WriteLine(builder.Environment.EnvironmentName);
 // Database selection based on Environment
-if (builder.Environment.EnvironmentName == "Staging")
+if (builder.Environment.IsStaging())
 {
-    // Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"]);
-    config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Staging"];
-} else if (builder.Environment.EnvironmentName == "Development")
+    // Force dotnet to read user-secrets in Staging Environment too.
+    builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly());
+    config.ApiKey = builder.Configuration["ElephantSqlStaging"];
+}
+
+if (builder.Environment.IsDevelopment())
 {
-    // Console.WriteLine(builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"]);
     config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"];
 }
-else
-{
-    // config.ApiKey = "postgres://qxjcbemc:krtV_Nh0QqO3kwMLYFSPOcQAQ4GJQA7G@ella.db.elephantsql.com/qxjcbemc";
-    throw new Exception("Environment not set. Cannot choose Database.");
-}
-// Console.WriteLine(config.ApiKey);
+_ = config.ApiKey ?? throw new Exception("Environment not set. Cannot choose Database.");
 
 builder.Services.AddSingleton<AppConfiguration>(config);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Require Swagger in both Development and Staging
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

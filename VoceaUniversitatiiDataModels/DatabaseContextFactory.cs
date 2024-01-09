@@ -1,11 +1,7 @@
-﻿using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Design;
 using VoceaUniversitatiiConfigurations;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace VoceaUniversitatiiDataModels;
 
@@ -17,7 +13,7 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
     {
         var config = new ConfigurationBuilder().AddUserSecrets<DatabaseContextFactory>().Build();
         var secretProvider = config.Providers.First();
-        secretProvider.TryGet("DatabaseKeys:ElephantSql-Key-Development", out var ApiKey);
+        secretProvider.TryGet("ElephantSqlStaging", out var ApiKey);
         _config.ApiKey = ApiKey;
     }
     

@@ -7,3 +7,8 @@ In order to update database to latest migrations use:
 
 `cd \vocea-universitaii`  
 `dotnet ef database update`
+
+or
+
+`cd \VoceaUniversitatiiDataModels`  
+`dotnet ef database update --startup-project ../VoceaUniversitatii/`
