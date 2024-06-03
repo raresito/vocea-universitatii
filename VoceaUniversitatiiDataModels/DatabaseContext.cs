@@ -11,7 +11,7 @@ namespace VoceaUniversitatiiDataModels;
 
 public class DatabaseContext : DbContext
 {
-    private AppConfiguration _config;
+    private IConfiguration _configuration;
     
     public DbSet<Faculty> Faculties { get; set; } = null!;
     public DbSet<Department> Departments { get; set; } = null!;
@@ -39,43 +39,17 @@ public class DatabaseContext : DbContext
     
     public DbSet<EvaluationSession> EvaluationSessions { get; set; } = null!;
     
-    public DatabaseContext(DbContextOptions<DatabaseContext> options, AppConfiguration config)
+    public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration configuration)
         : base(options)
     {
-        _config = config;
-    }
-    
-    public static string ElephantSQLConnectionString(string ConnectionString)
-    {
-        var uri = new Uri(ConnectionString);
-        var db = uri.AbsolutePath.Trim('/');
-        var user = uri.UserInfo.Split(':')[0];
-        var passwd = uri.UserInfo.Split(':')[1];
-        var port = uri.Port > 0 ? uri.Port : 5432;
-        var connStr = $"Server={uri.Host};Database={db};User Id={user};Password={passwd};Port={port}";
-        Console.WriteLine(connStr);
-        return connStr;
+        _configuration = configuration;
     }
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        // connect to postgres with connection string from app settings
-        // options.UseNpgsql(Configuration.GetConnectionString("VoceaDatabase"));
-        
-        // Use Migrations from the dedicated project
-        // connect to postgres hosted database on ElephantSQL
-        if (_config.DeploymentEnvironment == "LEGACY_MIGRATION")
-        {
-            options.UseNpgsql(_config.ApiKey,
-                x => 
-                    x.MigrationsAssembly ("VoceaUniversitatiiMigrations"));
-        }
-        else
-        {
-            options.UseNpgsql(ElephantSQLConnectionString(_config.ApiKey),
-                x => 
-                    x.MigrationsAssembly ("VoceaUniversitatiiMigrations"));
-        }
+        options.UseNpgsql(_configuration.GetConnectionString("VoceaUniversitatiiDevDatabasse"),
+            x => 
+                x.MigrationsAssembly ("VoceaUniversitatiiMigrations"));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

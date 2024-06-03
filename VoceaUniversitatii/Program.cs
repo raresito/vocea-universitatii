@@ -10,7 +10,6 @@ using VoceaUniversitatii.Services.TeacherTitleService;
 using VoceaUniversitatiiConfigurations;
 using VoceaUniversitatiiDataModels;
 
-// global using vocea_universitatii.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,21 +30,6 @@ builder.Services.AddDbContext<DatabaseContext>();
 
 // Use AppConfiguration singleton to manage secrets.
 var config = new AppConfiguration();
-
-// Console.WriteLine(builder.Environment.EnvironmentName);
-// Database selection based on Environment
-if (builder.Environment.IsStaging())
-{
-    // Force dotnet to read user-secrets in Staging Environment too.
-    builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly());
-    config.ApiKey = builder.Configuration["ElephantSqlStaging"];
-}
-
-if (builder.Environment.IsDevelopment())
-{
-    config.ApiKey = builder.Configuration["DatabaseKeys:ElephantSql-Key-Development"];
-}
-_ = config.ApiKey ?? throw new Exception("Environment not set. Cannot choose Database.");
 
 builder.Services.AddSingleton<AppConfiguration>(config);
 

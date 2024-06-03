@@ -5,7 +5,7 @@
 
 In order to update database to latest migrations use:
 
-`cd \vocea-universitaii`  
+`cd \VoceaUniversitatii`  
 `dotnet ef database update`
 
 or
