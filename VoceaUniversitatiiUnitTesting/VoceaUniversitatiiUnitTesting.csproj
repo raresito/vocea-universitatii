@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\vocea-universitatii\VoceaUniversitatii.csproj" />
+      <ProjectReference Include="..\VoceaUniversitatii\VoceaUniversitatii.csproj" />
     </ItemGroup>
 
 </Project>
