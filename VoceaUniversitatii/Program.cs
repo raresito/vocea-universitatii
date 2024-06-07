@@ -1,15 +1,14 @@
 using System.Diagnostics;
 using System.Reflection;
-using VoceaUniversitatii.Services.DepartmentService;
-using VoceaUniversitatii.Services.DisciplineService;
 using VoceaUniversitatii.Services.FacultyService;
-using VoceaUniversitatii.Services.StudentCohortService;
-using VoceaUniversitatii.Services.StudyProgramService;
+using VoceaUniversitatii.Services.DepartmentService;
 using VoceaUniversitatii.Services.TeacherService;
 using VoceaUniversitatii.Services.TeacherTitleService;
+using VoceaUniversitatii.Services.StudyProgramService;
+using VoceaUniversitatii.Services.DisciplineService;
+using VoceaUniversitatii.Services.StudentCohortService;
 using VoceaUniversitatiiConfigurations;
 using VoceaUniversitatiiDataModels;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
