@@ -11,8 +11,7 @@ namespace VoceaUniversitatiiDataModels;
 
 public class DatabaseContext : DbContext
 {
-    private IConfiguration _configuration;
-    
+    private readonly IConfiguration _configuration;
     public DbSet<Faculty> Faculties { get; set; } = null!;
     public DbSet<Department> Departments { get; set; } = null!;
     public DbSet<Teacher> Teachers { get; set; } = null!;
@@ -20,13 +19,11 @@ public class DatabaseContext : DbContext
     
     public DbSet<AcademicYear> AcademicYears { get; set; } = null!;
     public DbSet<StudyProgram> StudyPrograms { get; set; } = null!;
-
     public DbSet<StudentCohort> StudentCohorts { get; set; } = null!;
 
     public DbSet<Cohort> Cohorts { get; set; } = null!;
 
     public DbSet<StudyYear> StudyYears { get; set; } = null!;
-    
     public DbSet<Discipline> Disciplines { get; set; } = null!;
     
     public DbSet<EvaluationMethod> EvaluationMethods { get; set; } = null!;
