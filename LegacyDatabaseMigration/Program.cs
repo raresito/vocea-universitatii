@@ -1,91 +1,124 @@
-﻿// https://learn.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
-
+using System.Data.Common;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Builder;
+using System.Net;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
+using LegacyDatabaseMigration.CourseEvakData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Ini;
-using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
-using VoceaUniversitatiiConfigurations;
 using VoceaUniversitatiiDataModels;
-using JsonSerializer = System.Text.Json.JsonSerializer;
+using VoceaUniversitatiiDataModels.Models;
+using Form = LegacyDatabaseMigration.CourseEvalModels.Form;
 
-namespace HttpClientSample
+namespace HttpClientSample;
+
+public class LegacyFormConentData
 {
-    class Program
+    [JsonPropertyName("chestionar")]
+    public List<List<LegacyQuestionSection>> Chestionar { get; set; }
+}
+
+public class LegacyQuestionSection
+{
+    [JsonPropertyName("intrebare")]
+    public List<QuestionOrLabel> Intrebare { get; set; }
+    
+    [JsonPropertyName("label")]
+    public string Label { get; set; }
+}
+
+public class QuestionOrLabel
+{
+    [JsonPropertyName("enunt")]
+    public string Enunt { get; set; }
+    
+    [JsonPropertyName("rasp")]
+    public string Rasp { get; set; }
+    
+    [JsonPropertyName("label")]
+    public string Label { get; set; }
+}
+
+public class Program
+{
+    public static IConfigurationRoot GetConfiguration()
     {
-        static HttpClient client = new HttpClient();
+        var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+        return builder.Build();
+    }
+    
+    public 
+    
+    static void Main()
+    {
         
-        static void Main()
+        var configuration = GetConfiguration();
+        var connectionString = configuration.GetConnectionString("CourseEvalDatabase");
+
+        var optionsBuilder1 = new DbContextOptionsBuilder<CourseevalDrept13122023Context>();
+        optionsBuilder1.UseNpgsql(connectionString);
+        using (var legacyDataBaseContext = new CourseevalDrept13122023Context(optionsBuilder1.Options))
         {
-            // RunAsync().GetAwaiter().GetResult();
-            // IEnumerable<LegacyDepartment> departments = MigrateDepartments.GetDepartments();
+            Form legacyForm = legacyDataBaseContext.Forms.First();
+            VoceaUniversitatiiDataModels.Models.Form newForm = new VoceaUniversitatiiDataModels.Models.Form();
+            newForm.FormName = legacyForm.Title;
+            newForm.CreatedAt = legacyForm.CreatedAt;
+            newForm.Id = legacyForm.Id;
             
-            // Create Destination Database
-            String TestDBConnectionString = CreateDestinationDatabase();
-
-            DbContextOptions<DatabaseContext> dbContextOptions = new DbContextOptions<DatabaseContext>();
-            AppConfiguration config = new AppConfiguration();
-            config.ApiKey = TestDBConnectionString;
-            config.DeploymentEnvironment = "LEGACY_MIGRATION";
-
-            using (DbContext ctx = new DatabaseContext(dbContextOptions, config))
+            LegacyFormConentData legacyFormContentData = JsonSerializer.Deserialize<LegacyFormConentData>(legacyForm.Content);
+            
+            int formQuestionsCounter = 1;
+            
+            foreach (var legacySectionList in legacyFormContentData.Chestionar)
             {
-                ctx.Database.Migrate();
+                foreach (var legacyQuestionSection in legacySectionList)
+                {
+                    Question question = new Question();
+                    question.LegacyFormOrderNumber = formQuestionsCounter;
+                    if (legacyQuestionSection.Intrebare is not null)
+                    {
+                        foreach (var questionOrLabel in legacyQuestionSection.Intrebare)
+                        {
+                            if (questionOrLabel.Label is null && questionOrLabel.Rasp is null &&
+                                questionOrLabel.Enunt is not null)
+                            {
+                                question.Title = questionOrLabel.Enunt;
+                            }
+                            else if (questionOrLabel.Label is null && questionOrLabel.Rasp is not null &&
+                                     questionOrLabel.Enunt is null)
+                            {
+                                QuestionOptions questionOptions = new QuestionOptions();
+                                questionOptions.OptionText = questionOrLabel.Rasp;
+                                questionOptions.Question = question;
+                                if (question.QuestionOptions is null)
+                                    question.QuestionOptions = new List<QuestionOptions>();
+                                question.QuestionOptions.Add(questionOptions);
+                                question.QuestionType = QuestionType.Options;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid question or label");
+                                Debugger.Launch();
+                            }
+                        }
+                        if(question.QuestionOptions is null)
+                            question.QuestionType = QuestionType.Text;
+                        if (newForm.Questions is null)
+                            newForm.Questions = new List<Question>();
+                        newForm.Questions.Add(question);
+                        formQuestionsCounter++;
+                    }
+                }
             }
+            Console.WriteLine("");
         }
 
-        public static String CreateDestinationDatabase()
+        var optionsBuilder2 = new DbContextOptionsBuilder<DatabaseContext>();
+        optionsBuilder2.UseNpgsql(connectionString);
+        using (var context2 = new DatabaseContext(optionsBuilder2.Options, null))
         {
-            NpgsqlConnection m_conn = new NpgsqlConnection(Constants.LegacyDbConnectionString);
-            string TestDbName = "testdb" + DateTime.Now.ToString("yyyyMMddHHmmss");
-            string CreateDatabaseSQL = $"CREATE DATABASE {TestDbName} " +
-                                       $"WITH OWNER = {Constants.LegacyDbUsername} " +
-                                       $"ENCODING = 'UTF8' " +
-                                       $"CONNECTION LIMIT = -1; ";
-            NpgsqlCommand m_createdb_cmd = new NpgsqlCommand(CreateDatabaseSQL, m_conn);
-            m_conn.Open();
-            m_createdb_cmd.ExecuteNonQuery();
-            m_conn.Close();
-
-            String connectionString = String.Format(
-                "Server={0}; User Id={1}; Database={2}; Port={3}; Password={4};SSLMode=Prefer",
-                Constants.LegacyDbHost,
-                Constants.LegacyDbUsername,
-                TestDbName,
-                Constants.LegacyDbPort,
-                Constants.LegacyDbPassword);
-
-            m_conn = new NpgsqlConnection(connectionString);
-            // NpgsqlCommand m_createtbl_cmd = new NpgsqlCommand(
-            //     "CREATE TABLE table1(ID CHAR(256) CONSTRAINT id PRIMARY KEY, Title CHAR)"
-            //     , m_conn);
-            // m_conn.Open();
-            // m_createtbl_cmd.ExecuteNonQuery();
-            // m_conn.Close();
-            Console.WriteLine("Finnished");
-            return connectionString;
-        }
-
-        public static void DeleteDestinationDatabase()
-        {
-            string DatabaseToDelete = "testdb20240108192112";
-            NpgsqlConnection m_conn = new NpgsqlConnection(
-                String.Format("Server={0}; User Id={1}; Database={2}; Port={3}; Password={4};SSLMode=Prefer", 
-                    Constants.LegacyDbHost, 
-                    Constants.LegacyDbUsername, 
-                    Constants.LegacyDbName, 
-                    Constants.LegacyDbPort, 
-                    Constants.LegacyDbPassword)
-            );
-            
-            NpgsqlCommand m_createtbl_cmd = new NpgsqlCommand(
-                $"DROP DATABASE {DatabaseToDelete};", m_conn);
-            m_conn.Open();
-            m_createtbl_cmd.ExecuteNonQuery();
-            m_conn.Close();
-            Console.WriteLine("Finnished");
+            // Use context2 here
         }
     }
 }
