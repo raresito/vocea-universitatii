@@ -7,4 +7,6 @@ public class Language
     public string LanguageName { get; set; }
     
     public ICollection<StudyProgram> StudyPrograms { get; } = new List<StudyProgram>();
+    
+    public ICollection<Form> Forms { get; } = new List<Form>();
 }
