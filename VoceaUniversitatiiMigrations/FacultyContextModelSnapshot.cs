@@ -22,6 +22,21 @@ namespace vocea_universitatii.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("FormQuestion", b =>
+                {
+                    b.Property<long>("FormsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("QuestionsId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("FormsId", "QuestionsId");
+
+                    b.HasIndex("QuestionsId");
+
+                    b.ToTable("FormQuestion", (string)null);
+                });
+
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.AcademicYear", b =>
                 {
                     b.Property<long>("Id")
@@ -38,7 +53,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AcademicYears");
+                    b.ToTable("AcademicYears", (string)null);
 
                     b.HasData(
                         new
@@ -111,7 +126,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("UpdatedByid");
 
-                    b.ToTable("Activities");
+                    b.ToTable("Activities", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.ActivityStudentCohort", b =>
@@ -161,7 +176,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("ActivityDisciplineId", "ActivityTypeId", "ActivityTeacherId");
 
-                    b.ToTable("ActivityStudentCohorts");
+                    b.ToTable("ActivityStudentCohorts", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.ActivityType", b =>
@@ -181,7 +196,7 @@ namespace vocea_universitatii.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("ActivityTypes");
+                    b.ToTable("ActivityTypes", (string)null);
 
                     b.HasData(
                         new
@@ -215,7 +230,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cohorts");
+                    b.ToTable("Cohorts", (string)null);
 
                     b.HasData(
                         new
@@ -283,7 +298,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("UpdatedByid");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Discipline", b =>
@@ -348,7 +363,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("UpdatedByid");
 
-                    b.ToTable("Disciplines");
+                    b.ToTable("Disciplines", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.EvaluationMethod", b =>
@@ -389,7 +404,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("UpdatedByid");
 
-                    b.ToTable("EvaluationMethods");
+                    b.ToTable("EvaluationMethods", (string)null);
 
                     b.HasData(
                         new
@@ -454,7 +469,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("AcademicYearId");
 
-                    b.ToTable("EvaluationSessions");
+                    b.ToTable("EvaluationSessions", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Faculty", b =>
@@ -499,7 +514,68 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("UpdatedByid");
 
-                    b.ToTable("Faculties");
+                    b.ToTable("Faculties", (string)null);
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Form", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("CreatedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("DeletedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("FormName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("UpdatedByid")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByid");
+
+                    b.HasIndex("DeletedByid");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("UpdatedByid");
+
+                    b.ToTable("Forms", (string)null);
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.FormQuestionInclusion", b =>
+                {
+                    b.Property<long>("FormId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("QuestionId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("FormId", "QuestionId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("FormQuestionInclusion", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Language", b =>
@@ -516,7 +592,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language");
+                    b.ToTable("Language", (string)null);
 
                     b.HasData(
                         new
@@ -533,7 +609,165 @@ namespace vocea_universitatii.Migrations
                         {
                             Id = 3L,
                             LanguageName = "German"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            LanguageName = "Romanian"
                         });
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Question", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("CreatedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("DeletedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("LegacyFormOrderNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("QuestionAnswer")
+                        .HasColumnType("text");
+
+                    b.Property<int>("QuestionType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("UpdatedByid")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByid");
+
+                    b.HasIndex("DeletedByid");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("UpdatedByid");
+
+                    b.ToTable("Questions", (string)null);
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.QuestionOptions", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("CreatedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("DeletedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("OptionText")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("QuestionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("UpdatedByid")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByid");
+
+                    b.HasIndex("DeletedByid");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("UpdatedByid");
+
+                    b.ToTable("QuestionOptions", (string)null);
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.QuestionScale", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("CreatedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("DeletedByid")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MaxValue")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MinValue")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("QuestionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("UpdatedByid")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByid");
+
+                    b.HasIndex("DeletedByid");
+
+                    b.HasIndex("QuestionId")
+                        .IsUnique();
+
+                    b.HasIndex("UpdatedByid");
+
+                    b.ToTable("QuestionScales", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.StudentCohort", b =>
@@ -602,7 +836,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("UpdatedByid");
 
-                    b.ToTable("StudentCohorts");
+                    b.ToTable("StudentCohorts", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.StudyProgram", b =>
@@ -653,7 +887,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("UpdatedByid");
 
-                    b.ToTable("StudyPrograms");
+                    b.ToTable("StudyPrograms", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.StudyProgramAcademicYearEnrollments", b =>
@@ -668,7 +902,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("AcademicYearId");
 
-                    b.ToTable("StudyProgramAcademicYearEnrollments");
+                    b.ToTable("StudyProgramAcademicYearEnrollments", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.StudyYear", b =>
@@ -685,7 +919,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StudyYears");
+                    b.ToTable("StudyYears", (string)null);
 
                     b.HasData(
                         new
@@ -776,7 +1010,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("UpdatedByid");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teachers", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.TeacherDepartmentMembership", b =>
@@ -818,7 +1052,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("UpdatedByid");
 
-                    b.ToTable("TeacherDepartmentMembership");
+                    b.ToTable("TeacherDepartmentMembership", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.TeacherTitle", b =>
@@ -862,7 +1096,7 @@ namespace vocea_universitatii.Migrations
 
                     b.HasIndex("UpdatedByid");
 
-                    b.ToTable("TeacherTitles");
+                    b.ToTable("TeacherTitles", (string)null);
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.User", b =>
@@ -892,7 +1126,22 @@ namespace vocea_universitatii.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("FormQuestion", b =>
+                {
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.Form", null)
+                        .WithMany()
+                        .HasForeignKey("FormsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.Question", null)
+                        .WithMany()
+                        .HasForeignKey("QuestionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Activity", b =>
@@ -1098,6 +1347,141 @@ namespace vocea_universitatii.Migrations
                     b.Navigation("CreatedBy");
 
                     b.Navigation("DeletedBy");
+
+                    b.Navigation("UpdatedBy");
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Form", b =>
+                {
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedByid");
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "DeletedBy")
+                        .WithMany()
+                        .HasForeignKey("DeletedByid");
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.Language", "Language")
+                        .WithMany("Forms")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByid");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("DeletedBy");
+
+                    b.Navigation("Language");
+
+                    b.Navigation("UpdatedBy");
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.FormQuestionInclusion", b =>
+                {
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.Form", "Form")
+                        .WithMany("FormQuestionInclusions")
+                        .HasForeignKey("FormId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.Question", "Question")
+                        .WithMany("FormQuestionInclusions")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Form");
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Question", b =>
+                {
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedByid");
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "DeletedBy")
+                        .WithMany()
+                        .HasForeignKey("DeletedByid");
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByid");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("DeletedBy");
+
+                    b.Navigation("Language");
+
+                    b.Navigation("UpdatedBy");
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.QuestionOptions", b =>
+                {
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedByid");
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "DeletedBy")
+                        .WithMany()
+                        .HasForeignKey("DeletedByid");
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.Question", "Question")
+                        .WithMany("QuestionOptions")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByid");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("DeletedBy");
+
+                    b.Navigation("Question");
+
+                    b.Navigation("UpdatedBy");
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.QuestionScale", b =>
+                {
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedByid");
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "DeletedBy")
+                        .WithMany()
+                        .HasForeignKey("DeletedByid");
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.Question", "Question")
+                        .WithOne("QuestionScale")
+                        .HasForeignKey("VoceaUniversitatiiDataModels.Models.QuestionScale", "QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VoceaUniversitatiiDataModels.Models.User", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByid");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("DeletedBy");
+
+                    b.Navigation("Question");
 
                     b.Navigation("UpdatedBy");
                 });
@@ -1343,9 +1727,25 @@ namespace vocea_universitatii.Migrations
                     b.Navigation("StudyPrograms");
                 });
 
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Form", b =>
+                {
+                    b.Navigation("FormQuestionInclusions");
+                });
+
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Language", b =>
                 {
+                    b.Navigation("Forms");
+
                     b.Navigation("StudyPrograms");
+                });
+
+            modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.Question", b =>
+                {
+                    b.Navigation("FormQuestionInclusions");
+
+                    b.Navigation("QuestionOptions");
+
+                    b.Navigation("QuestionScale");
                 });
 
             modelBuilder.Entity("VoceaUniversitatiiDataModels.Models.StudyProgram", b =>

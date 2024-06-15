@@ -11,7 +11,6 @@ namespace VoceaUniversitatiiDataModels;
 
 public class DatabaseContext : DbContext
 {
-    private readonly IConfiguration _configuration;
     public DbSet<Faculty> Faculties { get; set; } = null!;
     public DbSet<Department> Departments { get; set; } = null!;
     public DbSet<Teacher> Teachers { get; set; } = null!;
@@ -36,15 +35,24 @@ public class DatabaseContext : DbContext
     
     public DbSet<EvaluationSession> EvaluationSessions { get; set; } = null!;
     
-    public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration configuration)
+    public DbSet<Form> Forms { get; set; } = null!;
+    
+    public DbSet<Question> Questions { get; set; } = null!;
+    
+    public DbSet<QuestionOptions> QuestionOptions { get; set; } = null!;
+    
+    public DbSet<QuestionScale> QuestionScales { get; set; } = null!;
+    
+    public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)
     {
-        _configuration = configuration;
+        
     }
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        options.UseNpgsql(_configuration.GetConnectionString("VoceaUniversitatiiDevDatabasse"),
+        var configuration = VoceaUniversitatiiConfigurations.ConfigurationManager.GetDevConfiguration();
+        options.UseNpgsql(configuration.GetConnectionString("VoceaUniversitatiiDevDatabasse"),
             x => 
                 x.MigrationsAssembly ("VoceaUniversitatiiMigrations"));
     }

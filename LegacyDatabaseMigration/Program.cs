@@ -1,14 +1,7 @@
-using System.Diagnostics;
-using System.Text.Json;
 using LegacyDatabaseMigration.CourseEvakData;
-using LegacyDatabaseMigration.CourseEvalModels.CourseEvalFormModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using VoceaUniversitatiiDataModels;
-using VoceaUniversitatiiDataModels.Models;
-
-
-namespace HttpClientSample;
 
 public class Program
 {
@@ -29,7 +22,7 @@ public class Program
         using (var legacyDataBaseContext = new CourseevalDrept13122023Context(courseEvalOptions.Options))
         {
             DbContextOptionsBuilder<DatabaseContext> optionsBuilder2 = CreateOptions<DatabaseContext>("VoceaUniversitatiiDevDatabasse");
-            using (var voceaUniversitatiiDatabaseContext = new DatabaseContext(optionsBuilder2.Options, null))
+            using (var voceaUniversitatiiDatabaseContext = new DatabaseContext(optionsBuilder2.Options))
             {
                 FormsMigration formsMigration = new FormsMigration(legacyDataBaseContext, voceaUniversitatiiDatabaseContext);
                 formsMigration.Migrate();
