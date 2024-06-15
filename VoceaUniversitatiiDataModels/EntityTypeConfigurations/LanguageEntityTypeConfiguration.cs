@@ -21,7 +21,8 @@ public class LanguageEntityTypeConfiguration : IEntityTypeConfiguration<Language
         builder.HasData(
             new Language { Id = 1, LanguageName = "English"},
             new Language { Id = 2, LanguageName = "French"},
-            new Language { Id = 3, LanguageName = "German"}
+            new Language { Id = 3, LanguageName = "German"},
+            new Language { Id = 4, LanguageName = "Romanian"}
         );
     }
 }
