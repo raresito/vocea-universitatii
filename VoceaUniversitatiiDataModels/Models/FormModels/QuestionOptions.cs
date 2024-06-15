@@ -1,6 +1,6 @@
 namespace VoceaUniversitatiiDataModels.Models;
 
-public class QuestionOptions
+public class QuestionOptions : BaseModel
 {
     public long Id { get; set; }
     

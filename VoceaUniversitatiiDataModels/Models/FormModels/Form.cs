@@ -10,5 +10,6 @@ public class Form : BaseModel
     
     public Language Language { get; set; }
     
+    public ICollection<FormQuestionInclusion> FormQuestionInclusions { get; set; }
     public ICollection<Question>? Questions { get; set; }
 }
