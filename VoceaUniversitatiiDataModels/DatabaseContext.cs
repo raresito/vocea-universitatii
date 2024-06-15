@@ -75,6 +75,9 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<ActivityStudentCohort>()
             .HasKey(asc => new { asc.ActivityId, asc.StudentCohortId });
         
+        modelBuilder.Entity<FormQuestionInclusion>()
+            .HasKey(asc => new { asc.FormId, asc.QuestionId });
+        
         modelBuilder.Entity<StudyYear>()
             .HasData(
                 new StudyYear { Id = 1, Name = "Anul I - Licență" },
@@ -100,6 +103,11 @@ public class DatabaseContext : DbContext
                 new ActivityType { Id = 2, Name = "Seminar"},
                 new ActivityType { Id = 3, Name = "Laborator"}
             );
+        
+        modelBuilder.Entity<Question>()
+            .HasOne(q => q.QuestionScale)
+            .WithOne(qs => qs.Question)
+            .HasForeignKey<QuestionScale>(qs => qs.QuestionId); // Assuming QuestionScale has a foreign key property named QuestionId
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
